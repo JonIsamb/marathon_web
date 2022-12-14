@@ -13,12 +13,10 @@
             </div>
         </div>
         <div>
-            <label for="email">Adresse mail</label>
-            <input type="email" name="email" id="email">
+            <x-form-control-label label="Adresse mail" name="email" />
         </div>
         <div>
-            <label for="pwd">Mot de passe</label>
-            <input type="password" name="password" id="pwd">
+            <x-form-control-label label="Mot de passe" name="password" />
         </div>
         <div >
             <input type="submit" value="Connexion">
