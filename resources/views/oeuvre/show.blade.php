@@ -23,6 +23,14 @@
         </tr>
         </tbody>
     </table>
+    @auth()
+        <form method="POST" action="{{route('user.like')}}">
+            @csrf
+            <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->id}}">
+            <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
+            <button type="submit" class="btn btn-primary">Liker</button>
+        </form>
+    @endauth
     <ul>
         @foreach($commentaires as $commentaire)
 

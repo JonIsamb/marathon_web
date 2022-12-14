@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commentaire;
+use App\Models\Oeuvre;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,5 +46,18 @@ class UserController extends Controller
         return redirect()->route('user.show', [$id])
             ->with('type', 'primary')
             ->with('msg', 'Visiteur modifié avec succès');
+    }
+
+    public function like(Request $request){
+        $user = User::find($request->user_id);
+        $oeuvres_ids = $user->likes()->pluck('oeuvre_id');
+
+        if($oeuvres_ids->contains($request->oeuvre_id)){
+            $user->likes()->detach($request->oeuvre_id);
+        } else {
+            $user->likes()->attach($request->oeuvre_id);
+        }
+
+        return redirect()->route('oeuvre.show', [$request->oeuvre_id]);
     }
 }
