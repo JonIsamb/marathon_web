@@ -33,6 +33,8 @@
                       method="POST" style="display: none;"> {{ csrf_field() }}
                 </form>
             @endguest  </ul>
+        <a href=""> route vers la premiere salle route("Salle.show",1)</a>
+        <a href="">route vers la vidéo</a>
     </nav>
     <div class="illustration">
         <img class="oeuvre" src="{{asset('storage/images/oeuvres/oeuvre-5.png')}}" alt="">
