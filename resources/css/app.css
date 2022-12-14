@@ -1,9 +1,22 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    width: 1024px;
-    margin: 0 auto;
-    min-height: 50rem;
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .button {
+        @apply rounded-md px-4 py-2 uppercase block w-fit font-bold hover:scale-105 transition duration-75;
+    }
+
+    .container {
+        @apply max-w-6xl mx-auto;
+    }
+
+    .input {
+        @apply rounded-md focus:outline-none p-2;
+    }
 }
 
 .welcome {
@@ -100,4 +113,6 @@ nav a{
 i{
     font-size: 2rem;
     color: rgb(202, 201, 201);
+.font-primary {
+    font-family: "EB Garamond";
 }

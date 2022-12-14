@@ -30,7 +30,7 @@
                 <div style="background-color: #fff;	border-top: 2px dashed #8c8b8b;">
                 <div class="list-group">
                     <strong>titre </strong>{{ $commentaire->titre }}
-                    <strong>texte</strong>  {{ $commentaire->texte }}
+                    <strong>texte</strong>  {{ $commentaire->contenu }}
                 </div>
 
 
@@ -38,6 +38,34 @@
             </div>
             </div>
         @endforeach
+            @if (Auth::user()->admin == 1)
+            @foreach($commentaires_validation as $commentaire)
+
+                <div class="mr-5 pr-5" style="width: 50%">
+                    <div style="background-color: #fff;	border-top: 2px dashed #8c8b8b;">
+                        <div class="list-group">
+                            <strong>titre </strong>{{ $commentaire->titre }}
+                            <strong>texte</strong>  {{ $commentaire->contenu }}
+                        </div>
+
+
+
+                        <form method="POST" action="{{route('commentaire.valide')}}">
+                            @csrf
+
+                            <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->id}}">
+                            <input type="hidden" name="commentaire_id" id="commentaire_id" value="{{$commentaire->id}}">
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                        </form>
+
+
+
+
+
+                    </div>
+                </div>
+            @endforeach
+            @endif
     </ul>
     @guest
         <p>Connectez-vous pour commenter .</p>
@@ -74,6 +102,7 @@
                             </textarea>
                                                 </div>
                                                 <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->id}}">
+                                                <input type="hidden" name="valide" id="valide" value="false">
                                                 <button type="submit" class="btn btn-primary">Valider</button>
                                             </form>
 
