@@ -40,6 +40,7 @@
         <img class="oeuvre" src="{{asset('storage/images/oeuvres/oeuvre-5.png')}}" alt="">
     </div>
     <div class="welcome">Bienvenue au musée virtuel !</div>
+    <div class="bg-primary">jar</div>
 </div>
 </body>
 </html>
