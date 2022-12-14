@@ -16,7 +16,7 @@ class CommentaireController extends Controller
             [
                 'titre'=>'required',
                 'texte'=>'required',
-                'note'=> 'required',
+                'valide'=> 'required',
                 'oeuvre_id'=>'required',
             ]
         );
@@ -32,6 +32,14 @@ class CommentaireController extends Controller
         $com->save();
 
         return redirect()->route('oeuvre.show',[$request->oeuvre_id]);
+    }
+
+    public function valide(Request $request){
+
+        $com = Commentaire::find($request->commentaire_id);
+        $com->valide = true;
+        $com->save();
+        return redirect()->route('oeuvre.show',$request->oeuvre_id);
     }
 
 }
