@@ -25,7 +25,7 @@ class CommentaireController extends Controller
 
         $com->titre = $request->titre;
         $com->contenu = $request->texte;
-        $com->valide=false;
+        $com->valide=0;
         $com->user_id=Auth::user()->id;
         $com->oeuvre_id = $request->oeuvre_id;
 
@@ -35,10 +35,15 @@ class CommentaireController extends Controller
     }
 
     public function valide(Request $request){
-
         $com = Commentaire::find($request->commentaire_id);
-        $com->valide = true;
+        $com->valide = 1;
         $com->save();
+        return redirect()->route('oeuvre.show',$request->oeuvre_id);
+    }
+
+    public function supprime(Request $request){
+        $com = Commentaire::find($request->commentaire_id);
+        $com->delete();
         return redirect()->route('oeuvre.show',$request->oeuvre_id);
     }
 
