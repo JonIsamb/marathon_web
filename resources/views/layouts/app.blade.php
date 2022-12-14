@@ -23,7 +23,7 @@
                 <h1>Capitol Art Gallery</h1>
             </div>
             <div>
-                <input id="searchBar" type="text" placeholder="Rechercher..."><a href="">
+                <input id="searchBar" type="text" placeholder="Rechercher..."><a href=""></a>
                 <a id="loginButton" href="{{ route('login') }}">SE CONNECTER</a>
                 <a id="registerButton" href="{{ route('register') }}">S'INSCRIRE</a>
             </div>
