@@ -26,3 +26,5 @@ Route::get('/home', function () {
 Route::resource('commentaire', \App\Http\Controllers\CommentaireController::class);
 
 Route::resource('oeuvre', \App\Http\Controllers\OeuvreController::class);
+
+Route::resource('user', \App\Http\Controllers\UserController::class);
