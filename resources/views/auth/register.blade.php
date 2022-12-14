@@ -13,27 +13,22 @@
             </div>
         </div>
         <div>
-            <label for="name">Nom</label>
-            <input type="text" name="name" id="name">
+            <x-form-control-label label="Nom" name="name" />
         </div>
 
         <!-- Email Address -->
         <div>
-            <label for="email">Adresse mail</label>
-            <input type="email" name="email" id="email">
+            <x-form-control-label label="Adresse mail" name="email" />
         </div>
-
 
         <!-- Password -->
         <div>
-            <label for="pwd">Mot de passe</label>
-            <input type="password" name="password" id="pwd">
+            <x-form-control-label label="Mot de passe" name="password" />
         </div>
 
         <!-- Confirm Password -->
         <div>
-            <label for="conf_pwd">Confirmation mot de passe</label>
-            <input type="password" name="password_confirmation" id="conf_pwd">
+            <x-form-control-label label="Confirmation mot de passe" name="password_confirmation" />
         </div>
         <div>
             <input type="submit" value="Enregistrement">
