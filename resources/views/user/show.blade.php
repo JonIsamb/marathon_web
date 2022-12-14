@@ -14,7 +14,17 @@
         Email : {{$user->email}}
         Avatar : <img src="{{asset('storage/'.$user->avatar)}}">
     </h1>
+    <form action="{{ route('user.upload',$user->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="mb-3">
+            <label for="avatar" class="form-label">Avatar</label>
+            <input class="form-control" type="file" id="avatar" name="avatar">
+        </div>
 
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Appliquer les modifications</button>
+        </div>
+    </form>
     <h2>
         Nombre de likes : {{$nbLikes}}
         Nombre de commentaires : {{$nbCommentaires}}

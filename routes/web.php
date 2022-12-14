@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,6 @@ Route::resource('commentaire', \App\Http\Controllers\CommentaireController::clas
 Route::resource('oeuvre', \App\Http\Controllers\OeuvreController::class);
 
 Route::resource('user', \App\Http\Controllers\UserController::class);
+
+Route::post('/user/{id}/upload', [UserController::class, 'upload'])->name('user.upload');
+
