@@ -29,6 +29,7 @@ Route::get('/home', function () {
 
 
 Route::post('oeuvre/commentaire/valide', [CommentaireController::class, 'valide']) ->name('commentaire.valide');
+Route::post('oeuvre/commentaire/supprime', [CommentaireController::class, 'supprime']) ->name('commentaire.supprime');
 
 
 Route::resource('salle',\App\Http\Controllers\SalleController::class);
