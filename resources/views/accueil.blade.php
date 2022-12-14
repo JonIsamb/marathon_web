@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@extends('layouts.app')
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+@section('content')
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-
-    <!-- Scripts -->
-    @vite(['resources/scss/app.scss','resources/css/app.css','resources/js/app.js'])
-</head>
-<body>
 <div class="container">
     <nav>
         <ul>
             @guest
-                <li><a href="{{ route('login') }}">Login</a></li>
-                <li><a href="{{ route('register') }}">Register</a></li>
+
             @else
                 <li> Bonjour {{ Auth::user()->name }}</li> @if (Auth::user())
 
@@ -41,5 +28,5 @@
     </div>
     <div class="welcome">Bienvenue au musée virtuel !</div>
 </div>
-</body>
-</html>
+
+@endsection

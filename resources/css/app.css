@@ -26,10 +26,78 @@
 
 .illustration .photo {
     display: block;
-    width: 100px;
 }
 
 .illustration .oeuvre {
     display: block;
     height: 40vh;
+}
+
+nav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 1500px;
+    margin: auto;
+}
+
+nav a{
+    text-decoration: none;
+}
+
+
+.logo{
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.logo h1{
+    font-family: 'EB Garamond';
+    text-transform: uppercase;
+    font-size: 1rem;
+    max-width: 150px;
+    margin-left: 20px;
+}
+
+.logo img{
+    width: 50px;
+    height: 50px;
+}
+#loginButton{
+    color: #ef4444;
+    font-family: sans-serif;
+    border: 2px solid #ef4444;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+#registerButton{
+    color: white;
+    font-family: sans-serif;
+    background-color: #ef4444;
+    border: 2px solid #ef4444;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+#searchBar{
+    height: 40px;
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid rgb(202, 201, 201);
+    margin-right: 20px;
+}
+
+i{
+    font-size: 2rem;
+    color: rgb(202, 201, 201);
 }
