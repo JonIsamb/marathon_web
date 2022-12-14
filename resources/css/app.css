@@ -96,6 +96,7 @@ i {
     font-size: 2rem;
     color: rgb(202, 201, 201);
 }
+<<<<<<< HEAD
 
 .font-primary {
     font-family: "EB Garamond";
@@ -104,3 +105,8 @@ i {
 .right{
     display: flex;
 }
+=======
+.font-primary {
+    font-family: "EB Garamond";
+}
+>>>>>>> 6e84af5cf454916f2214885734302ee97a035659
