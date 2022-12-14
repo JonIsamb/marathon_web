@@ -118,3 +118,7 @@ i{
 .font-primary {
     font-family: "EB Garamond";
 }
+
+.right{
+    display: flex;
+}
