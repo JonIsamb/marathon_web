@@ -18,7 +18,7 @@
         <div>
             <x-form-control-label label="Mot de passe" name="password" />
         </div>
-        <div >
+        <div>
             <input type="submit" value="Connexion">
         </div>
     </form>

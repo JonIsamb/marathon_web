@@ -2,11 +2,13 @@
 module.exports = {
     content: ["./resources/**/*.blade.php"],
     theme: {
-      colors: {
-        accent: "#ef4444"
-      },
-        extend: {
+      
+      extend: {
+          colors: {
 
+            accent: "#ef4444"
+          }
+        
         },
     },
     plugins: [],
