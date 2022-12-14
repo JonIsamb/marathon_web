@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentaireController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,12 @@ Route::get('/home', function () {
     return view('home');
 })->middleware(['auth'])->name('home');
 
+
+
+Route::post('oeuvre/commentaire/valide', [CommentaireController::class, 'valide']) ->name('commentaire.valide');
+
+
 Route::resource('commentaire', \App\Http\Controllers\CommentaireController::class);
+
 
 Route::resource('oeuvre', \App\Http\Controllers\OeuvreController::class);
