@@ -5,8 +5,15 @@
     max-width: 1500px;
     margin: auto;
     justify-content: center;
+    overflow: hidden;
 }
 
+.containerGrid{
+    display: flex;
+    max-width: 1500px;
+    margin: auto;
+    justify-content: center;
+}
 .welcome {
     display: flex;
     flex: 1;
@@ -386,8 +393,46 @@ i {
 }
 
 .oeuvresGrid{
+    margin-top: 100px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-auto-rows: 300px;
-    gap: 50px;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 600px;
+    row-gap: 50px;
+}
+
+.oeuvreCard{
+    overflow: hidden;
+    position: relative;
+    border-radius: 30px;
+    display: flex;
+    text-decoration: none;
+    align-content: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 90%;
+    background-color: white;
+}
+
+.oeuvreImage{
+    overflow: hidden;
+    margin-bottom: 0px;
+    height: 80%;
+    width:120%;
+    margin-left: -20px;
+    border-radius: 30px;
+}
+
+.oeuvreImage img{
+    width: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+.oeuvreNom{
+    text-decoration: none;
+    color: #ef4444;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 2rem;
 }
