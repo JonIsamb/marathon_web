@@ -19,7 +19,7 @@
 <nav>
         @guest
             <div class="logo">
-                <img src="{{asset('storage/images/logo/Full.png')}}" alt="">
+                <a href="{{route('accueil')}}"><img src="{{asset('storage/logo/logo.png')}}" alt=""></a>
                 <h1>Capitol Art Gallery</h1>
             </div>
             <div>
@@ -29,7 +29,7 @@
             </div>
         @else
             <div class="logo">
-                <img src="{{asset('storage/images/logo/Full.png')}}" alt="">
+                <a href="{{route('accueil')}}"><img src="{{asset('storage/logo/logo.png')}}" alt=""></a>
                 <h1>Capitol Art Gallery</h1>
             </div>
             <div class="center">

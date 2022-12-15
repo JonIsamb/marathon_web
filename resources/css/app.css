@@ -232,3 +232,112 @@ i {
 #avatarConfirm{
     margin-top: 20px;
 }
+
+.loginCard{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.loginCard form{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+    height: 500px;
+    border-radius: 50px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.loginCard form h1{
+    position: absolute;
+    top: 5%;
+    font-family: 'EB Garamond';
+    color: #ef4444;
+    font-size: 2.5rem;
+}
+
+.loginCard form h2{
+    position: absolute;
+    bottom: 5%;
+    font-family: 'sans serif';
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.loginCard form label{
+    font-family: sans-serif;
+    margin-right: 50px;
+
+}
+
+.input{
+    margin-bottom: 30px;
+    width: 250px;
+    height: 30px;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+}
+
+
+
+.validate{
+    margin-top: 30px;
+    background-color: #ef4444;
+    color: white;
+    width: 150px;
+    height: 30px;
+    border: none;
+    border-radius: 10%;
+}
+
+.registerCard{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.registerCard form{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+    height: 700px;
+    border-radius: 50px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.registerCard form h1{
+    position: absolute;
+    top: 5%;
+    font-family: 'EB Garamond';
+    color: #ef4444;
+    font-size: 2.5rem;
+}
+
+.registerCard form h2{
+    position: absolute;
+    bottom: 5%;
+    font-family: 'sans serif';
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.registerCard form label{
+    max-width: 150px;
+    font-family: sans-serif;
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 300px;
+    text-align: center;
+    margin-right: 50px;
+}
