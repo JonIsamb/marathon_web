@@ -34,7 +34,7 @@
             </div>
             <div class="liens">
                 <a href="{{ route('home') }}">Accueil</a>
-                <a href="{{ route('salle.index') }}">Salles</a>
+                <a href="{{ route('salle.show', 1) }}">Commencer la visite</a>
             </div>
             <div class="center">
                 <input id="searchBar" type="text" placeholder="Rechercher..."><a href=""></a>
