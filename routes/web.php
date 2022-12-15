@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 
 Route::get('/home', function () {
-    return view('home');
+    return view('accueil');
 })->middleware(['auth'])->name('home');
 
 
@@ -45,4 +45,3 @@ Route::post('user/like', [UserController::class, 'like']) ->name('user.like');
 
 
 Route::post('/user/{id}/upload', [UserController::class, 'upload'])->name('user.upload');
-
