@@ -45,4 +45,3 @@ Route::post('user/like', [UserController::class, 'like']) ->name('user.like');
 
 
 Route::post('/user/{id}/upload', [UserController::class, 'upload'])->name('user.upload');
-
