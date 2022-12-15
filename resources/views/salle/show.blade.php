@@ -230,6 +230,10 @@ svg {
     text-align:center;
     font-size: 34px;
   }
+  #detailAuteur{
+    font-size:14px;
+    color:white;
+  }
   @media screen and (max-width: 1000px){
     #detailInput input, #detailInput textarea{
       width:70vw;
@@ -357,7 +361,7 @@ svg {
 
   @endif
     @foreach ($oeuvres as $oeuvre)
-      <img src="{{asset('storage/'.$oeuvre->media_url)}}" draggable="false" data-id="{{$oeuvre->id}}" data-desc="{{$oeuvre->description}}" data-x="{{$oeuvre->coord_x}}" data-y="{{$oeuvre->coord_Y}}" alt="{{$oeuvre->nom}}">
+      <img src="{{asset('storage/'.$oeuvre->media_url)}}" draggable="false" data-id="{{$oeuvre->id}}" data-auteur="{{$oeuvre->auteur}}" data-desc="{{$oeuvre->description}}" data-x="{{$oeuvre->coord_x}}" data-y="{{$oeuvre->coord_Y}}" alt="{{$oeuvre->nom}}">
     @endforeach
     </div>
     
@@ -373,6 +377,7 @@ svg {
         </form>
     @endauth
     <div id="detailTxt"></div>
+    <div id="detailAuteur"></div>
     <div id="detailDesc"></div>
     <div id="comments_title"><h2>Commentaires</h2></div>
     <div id="sortComments">
@@ -402,12 +407,13 @@ svg {
 <script>
   let commentaires = [
       <?php  
+      
     foreach($commentaires as $comm){
       if($comm->valide){
-        echo "{ titre: \"". $comm->titre. "\", contenu: \"". $comm->contenu . "\", id: \"". $comm->id . "\", idOeuvre:\"".$comm->oeuvre_id."\", date: \"". $comm->date_post . "\", valid:\"".$comm->valide."\"}," ;
+        echo "{ titre: \"". $comm->titre. "\", contenu: \"". $comm->contenu . "\", id: \"". $comm->id . "\", idOeuvre:\"".$comm->oeuvre_id."\", date: \"". $comm->updated_at . "\", valid:\"".$comm->valide."\"}," ;
       } else {
         if($user->admin){
-          echo "{ titre: \"". $comm->titre. "\", contenu: \"". $comm->contenu . "\", id: \"". $comm->id . "\", idOeuvre:\"".$comm->oeuvre_id."\", date: \"". $comm->date_post . "\", valid:\"".$comm->valide."\"}," ;
+          echo "{ titre: \"". $comm->titre. "\", contenu: \"". $comm->contenu . "\", id: \"". $comm->id . "\", idOeuvre:\"".$comm->oeuvre_id."\", date: \"". $comm->updated_at . "\", valid:\"".$comm->valide."\"}," ;
         }
       }
     }
@@ -494,8 +500,97 @@ svg {
     
     t.onclick =()=> showDetail(t)
   }  
+
+  function createComment(comm, id) {
+    if(id == comm.idOeuvre){
+      let comm_container = document.createElement("div");
+      let titre = document.createElement("h3");
+      let content = document.createElement("p");
+      let comms_target = document.getElementById("detailComms");
+      comm_container.classList.add("comm");
+      titre.textContent= comm.titre;
+      comm_container.appendChild(titre);
+      content.textContent= comm.contenu;
+      comm_container.appendChild(content);
+    @auth()
+      @if(Auth::user()->admin==1)
+        if(!parseInt(comm.valide)){
+          let form_container= document.createElement("div");
+          form_container.id = "form_container";
+          form_container.classList.add("AR_form");
+
+          let form_validate = document.createElement("form");
+          form_validate.setAttribute("method", "post");
+          form_validate.setAttribute("action", "route('commentaire.valide')");
+
+          let commId = document.createElement("input");
+          commId.setAttribute("type", "hidden");
+          commId.setAttribute("name", "commId");
+          commId.setAttribute("value", comm.id);
+
+          form_validate.appendChild(commId);
+
+          let validate = document.createElement("input");
+          validate.setAttribute("type", "submit");
+          validate.setAttribute("name", "submit");
+          validate.innerHtml = "<i class='bx bx-check'></i>";
+          validate.id="submit_validate";
+          validate.classList.add("validate");
+
+
+          let checkmark = document.createElement('i');
+          checkmark.classList.add("bx");
+          checkmark.classList.add("bx-check");
+          checkmark.appendChild(validate);
+          
+          form_validate.appendChild(checkmark);
+          let csrf = document.getElementsByName("_token")[0].cloneNode();
+          form_validate.appendChild(csrf);
+
+
+
+
+          let form_reject = document.createElement("form");
+          form_reject.setAttribute("method", "post");
+          form_reject.setAttribute("action", "route('commentaire.supprime')");
+
+          let reject = document.createElement("input");
+          reject.setAttribute("type", "submit");
+          reject.setAttribute("name", "submit");
+          reject.classList.add("reject");
+          reject.id="submit_reject";
+          reject.innerHtml = "<i class='bx bxs-trash'></i>";
+
+          commId = document.createElement("input");
+          commId.setAttribute("type", "hidden");
+          commId.setAttribute("name", "commId");
+          commId.setAttribute("value", comm.id);
+          form_reject.appendChild(commId);
+
+          let trash = document.createElement('i');
+          trash.classList.add("bx");
+          trash.classList.add("bxs-trash");
+          trash.appendChild(reject);
+
+          form_reject.appendChild(trash);
+          csrf = document.getElementsByName("_token")[0].cloneNode();
+          form_reject.appendChild(csrf);
+
+          form_container.appendChild(form_validate);
+          form_container.appendChild(form_reject);
+
+          comm_container.appendChild(form_container);
+
+        }
+        @endif
+        @endauth
+
+      comms_target.appendChild(comm_container);
+    }
+  }
   
   function showDetail(t){
+    console.log("t:::",t)
     @auth 
     for (elem of document.getElementsByClassName("oeuvre_id")){
       elem.value = t.dataset.id;
@@ -509,9 +604,11 @@ svg {
       }
       
     } else {
+      
       gsap.timeline() //detailDesc
         .set('#detailTxt', {textContent:t.alt}, 0)
         .set('#detailDesc', {textContent:t.dataset.desc}, 0)
+        .set('#detailAuteur', {innerHtml:"<a href=''>"+t.dataset.auteur+"</a>"}, 0)
         .set('#detailImg', {background:'url('+t.src+') center no-repeat'}, 0)
         .fromTo('#detail', {top:'100%'}, {top:0, ease:'expo.inOut'}, 0)
         .fromTo('#detailImg', {y:'100%'}, {y:'0%', ease:'expo', duration:0.7}, 0.2)
@@ -521,10 +618,12 @@ svg {
         .fromTo('#detailInput', {opacity:0}, {opacity:1, ease:'power2.inOut'}, 0.4)
       document.body.style.overflow = "hidden";
       let comms_target = document.getElementById("detailComms");
-
+      document.getElementById('sortAsc').dataset.idSelected = t.dataset.id
+      document.getElementById('sortDesc').dataset.idSelected = t.dataset.id
       for (comm of commentaires){
         if(t.dataset.id == comm.idOeuvre){
-          let comm_container = document.createElement("div");
+          createComment(comm, t.dataset.id)
+          /*let comm_container = document.createElement("div");
           comm_container.classList.add("comm");
           let titre = document.createElement("h3");
           titre.textContent= comm.titre;
@@ -541,7 +640,7 @@ svg {
 
               let form_validate = document.createElement("form");
               form_validate.setAttribute("method", "post");
-              form_validate.setAttribute("action", "{{route('commentaire.valide')}}");
+              form_validate.setAttribute("action", "route('commentaire.valide')");
 
               let commId = document.createElement("input");
               commId.setAttribute("type", "hidden");
@@ -572,7 +671,7 @@ svg {
 
               let form_reject = document.createElement("form");
               form_reject.setAttribute("method", "post");
-              form_reject.setAttribute("action", "{{route('commentaire.supprime')}}");
+              form_reject.setAttribute("action", "route('commentaire.supprime')");
 
               let reject = document.createElement("input");
               reject.setAttribute("type", "submit");
@@ -608,7 +707,7 @@ svg {
             @endauth
 
           comms_target.appendChild(comm_container);
-        }
+          */}
       }
       document.getElementById("detail").style.overflow = "scroll";
     }
@@ -632,10 +731,7 @@ svg {
     
     gsap.set('.imgBox', {x:0, y:0})
   } else {
-    
     // quickTo can be used to optimize x/y movement on the cursor...but it doesn't work on fancier props like 'xPercent'
-
-    
     window.onmousemove =(e)=> {      
       gsap.to('.imgBox', { // move + rotate imgBoxes relative to mouse position
         xPercent:-e.clientX/innerWidth*100,
@@ -665,21 +761,35 @@ var wheelDistance = function(evt) {
 }
 
 // Adding event listener for some element
-let speed = document.addEventListener(
-    "DOMMouseScroll", wheelDistance);
+  let speed = document.addEventListener("DOMMouseScroll", wheelDistance);
+  let sortAsc = document.getElementById("sortAsc");
+  let sortDesc = document.getElementById("sortDesc");
 
+  sortAsc.addEventListener("click", (e)=>{
+    sortDesc.classList.remove("active");
+    sortAsc.classList.add("active");
+    const id = e.currentTarget.dataset.idSelected
+    
+    const commContainer = document.querySelector('#detailComms')
+    commContainer.innerHTML=""
+    const filtered = commentaires.filter(c => c.idOeuvre == id)
+    const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
+    sorted.forEach(el => createComment(el, id))
+    commContainer.scrollTo(0, 0)
+  });
+  sortDesc.addEventListener("click", (e)=>{
+    sortDesc.classList.add("active");
+    sortAsc.classList.remove("active");
+    const id = e.currentTarget.dataset.idSelected
+    
+    const commContainer = document.querySelector('#detailComms')
+    commContainer.innerHTML=""
+    const filtered = commentaires.filter(c => c.idOeuvre == id)
+    const sorted = filtered.sort((a, b) => new Date(a.date) - new Date(b.date))
+    sorted.forEach(el => createComment(el, id))
+    commContainer.scrollTo(0, 0)
+  });
 
-    let sortAsc = document.getElementById("sortAsc");
-    let sortDesc = document.getElementById("sortDesc");
-
-    sortAsc.addEventListener("click", ()=>{
-      sortDesc.classList.remove("active");
-      sortAsc.classList.add("active");
-    });
-    sortDesc.addEventListener("click", ()=>{
-      sortAsc.classList.remove("active");
-      sortDesc.classList.add("active");
-    });
 
 </script>
 @endsection
