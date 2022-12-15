@@ -2,41 +2,26 @@
 
 @section('content')
 
-<div>
+<div class="registerCard">
     @include("_errors")
     <form action="{{route('register')}}" method="post">
         @csrf
-        <div>
-            <h1>Création accès musée</h1>
-            <div>
-                Si vous avez déjà un compte, <a href="{{route('login')}}">connectez-vous</a>.
-            </div>
-        </div>
-        <div>
-            <x-form-control-label label="Nom" name="name" />
-        </div>
+        <h1>S'inscrire</h1>
 
+<div class="inputs">
+            
+            <x-form-control-label class="loginInput" label="Nom :" name="name" />
         <!-- Email Address -->
-        <div>
-            <x-form-control-label label="Adresse mail" name="email" />
-        </div>
+            <x-form-control-label class="loginInput" label="Adresse mail :" name="email" />
 
         <!-- Password -->
-        <div>
-            <x-form-control-label label="Mot de passe" name="password" />
-        </div>
-
+            <x-form-control-label class="loginInput" label="Mot de passe :" name="password" />
         <!-- Confirm Password -->
-        <div>
-            <x-form-control-label label="Confirmation mot de passe" name="password_confirmation" />
+            <x-form-control-label class="loginInput" label="Confirmation du mot de passe :" name="password_confirmation" />
         </div>
-        <div>
-            <input type="submit" value="Enregistrement">
-        </div>
+            <input class="validate" type="submit" value="Enregistrement">
+            <h2>Si vous avez déjà un compte, <a href="{{route('login')}}">Connectez-vous</a></h2>
     </form>
-    <div>
-        <a href="{{route('accueil')}}">Retour à la page principale</a>
-    </div>
 </div>
 
 @endsection
