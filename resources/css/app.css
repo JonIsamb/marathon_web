@@ -1,6 +1,29 @@
+:root {
+    --primary: #ef4444;
+    --sans: sans-serif;
+    --serif: "EB Garamond";
+    --gradient: linear-gradient(to bottom right, var(--primary) 0%, hsl(0, 84%, 50%) 100%);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow-x: clip;
+}
+
+p {
+    line-height: 1.5;
+}
 *{
     margin: 0;
     padding: 0;
+}
+h1,h2,h3,h4,h5,h6 {
+    line-height: 1.1;
 }
 
 .container{
@@ -9,6 +32,27 @@
     margin: auto;
     justify-content: center;
     position: relative;
+    z-index: 1;
+}
+
+.containerhome {
+    display: flex;
+    max-width: 70%;
+    margin: auto;
+    /* justify-content: center; */
+    position: relative;
+    z-index: 1; 
+}
+
+.containerMax {
+    width: calc(100% - 3rem);
+    max-width: 1500px;
+    margin-inline: auto;
+    padding-block-end: 10rem;
+}
+.containerMax p {
+    color: #282828;
+    font-size: 1.125rem;
 }
 
 .containerGrid{
@@ -38,7 +82,7 @@
     position: absolute;
     width: 180px;
     height: 180px;
-    background-color: #ef4444;
+    background-color: var(--primary);
     right: -50px;
    top: -60px;
     border-radius:30%;
@@ -48,7 +92,7 @@
     position: absolute;
     width: 180px;
     height: 180px;
-    background-color: #ef4444;
+    background-color: var(--primary);
     left: -50px;
     bottom: -60px;
     border-radius:30%;
@@ -69,9 +113,8 @@
 
 nav{
     display: flex;
-    flex-direction: row;
     align-items: center;
-    width: 1500px;
+    max-width: 1500px;
     margin: auto;
     justify-content: center;
 }
@@ -83,7 +126,6 @@ nav a{
 
 .logo{
     display: flex;
-
     align-items: center;
 }
 
@@ -107,9 +149,9 @@ nav a{
     flex-grow: 1;
 }
 #loginButton{
-    color: #ef4444;
+    color: var(--primary);
     font-family: sans-serif;
-    border: 2px solid #ef4444;
+    border: 2px solid var(--primary);
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
@@ -122,8 +164,8 @@ nav a{
 #registerButton{
     color: white;
     font-family: sans-serif;
-    background-color: #ef4444;
-    border: 2px solid #ef4444;
+    background-color: var(--primary);
+    border: 2px solid var(--primary);
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
@@ -135,8 +177,8 @@ nav a{
 #logoutButton{
     color: white;
     font-family: sans-serif;
-    background-color: #ef4444;
-    border: 2px solid #ef4444;
+    background-color: var(--primary);
+    border: 2px solid var(--primary);
     padding: 7px;
     padding-left: 20px;
     padding-right: 20px;
@@ -148,8 +190,8 @@ nav a{
 #homeButton{
     color: white;
     font-family: sans-serif;
-    background-color: #ef4444;
-    border: 2px solid #ef4444;
+    background-color: var(--primary);
+    border: 2px solid var(--primary);
     padding: 7px;
     padding-left: 15px;
     margin-right: 30px;
@@ -166,8 +208,8 @@ nav a{
 #visitButton{
     color: white;
     font-family: sans-serif;
-    background-color: #ef4444;
-    border: 2px solid #ef4444;
+    background-color: var(--primary);
+    border: 2px solid var(--primary);
     padding: 7px;
     padding-left: 15px;
     padding-right: 15px;
@@ -178,6 +220,7 @@ nav a{
 #searchBar{
     height: 35px;
     width: 300px;
+    padding-inline: 1rem;
     border-radius: 10px;
     border: 1px solid rgb(202, 201, 201);
     margin-right: 20px;
@@ -195,50 +238,226 @@ i {
 .presentation{
     margin-top: 100px;
     display: flex;
-    width: 1500px;
-}
-.cta span h1{
-    margin-top: 0px;
-    margin-bottom: 0;
-    font-family: 'EB Garamond';
-    font-size: 6.5rem;
-    max-width: 500px;
-    margin-bottom: 0;
+    max-width: 1500px;
 }
 
-.cta h2{
-    font-family:'sans serif';
+.text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to bottom right, var(--primary), hsl(0, 84%, 50%));
+    color: transparent;
+}
+
+.button {
+    font-family: var(--sans, sans-serif);
+    background-color: var(--primary, var(--primary));
+    background-image: linear-gradient();
+    padding-block: 1em;
+    padding-inline: 1.5em;
+    border-radius: .5em;
+    display: flex;
+    align-items: center;
+    max-width: fit-content;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+}
+
+
+.header__title{
+    font-family: 'EB Garamond';
+    font-size: clamp(2rem, 20vw, 6.5rem);
+    max-width: 500px;
+    margin-bottom: 0;
+    line-height: 1.1;
+}
+
+.header__desc{
+    font-family: var(--sans);
     font-weight: 200;
     font-size: 1.5rem;
     max-width: 50%;
     width: 800px;
-    margin-bottom: 50px;
+    margin-block-start: 1.5rem;
+    margin-block-end: 2.5rem;
 }
 
-.cta a{
-    font-family: 'sans-serif';
+.header__cta {
+    font-size: 1.4rem;
+}
+
+.desc {
+    position: relative;
+    background-color: #ededed;
+    margin-block-start: 25rem;
+    isolation: isolate;
+    overflow-x: clip;
+}
+
+.desc::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 120vw;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    top: -25%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    background-color: #ededed; 
+    margin-bottom: 20px;
+}
+
+.desc__section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "text deco";
+    place-content: center;
+    /* place-items: center; */
+    gap: 2rem;
+    margin-block: 10rem;
+}
+
+.desc__section:nth-child(even) {
+    grid-template-areas: "deco text";
+}
+
+.desc__text {
+    grid-area: text;
+    font-family: var(--sans);
+}
+
+.desc__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
     text-transform: uppercase;
+    font-family: var(--sans);
+    font-weight: 700;
+}
+
+.desc__p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.desc__sq {
+    width: 25%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-area: deco;
+    place-content: center;
+    align-items: center;
+}
+
+.desc__square {
+    aspect-ratio: 1;
+}
+.circle {
+    border-radius: 50%;
+}
+
+.desc__salles {
+    display: flex;
+    gap: 1rem;
+}
+
+.desc__section-salles::before {
+    content: "";
+    background-color: #f5f5f5;
+    position: absolute;
+    height: 60ch;
+    top: 15%;
+    left: 50;
+    z-index: -1;
+    transform: rotateZ(20deg) translateX(25%);
+    width: 50%;
+    border-radius: 15rem;
+}
+
+.desc__salle {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+}
+
+.desc__salle:nth-child(1) {
+    background-color: white;
+}
+.desc__salle:nth-child(2) {
+    background-color: #FFB9B9;
+}
+.desc__salle:nth-child(3) {
+    background-color: #FF7B7B;
+}
+.desc__salle:nth-child(4) {
+    background-color: #FF6565;
+}
+.desc__salle:nth-child(5) {
+    background-color: var(--primary);
+}
+
+
+
+.green {background-color: #038E5B;}
+.orange {background-color: #FCAB10;}
+.blue {background-color: #0C5092;}
+.red {background-color: #E4242D;}
+
+.letsgo {
     font-size: 1.5rem;
-    text-decoration: none;
-    background-color: #ef4444;
-    color: white;
-    padding: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border-radius: 10px;
+    margin-inline: auto;
 }
 
 .colors{
     display: flex;
     position: relative;
     width: 50%;
+}
 
+/* media that in mobile it display none the second div of desc__section */
+@media (max-width: 1500px) {
+    .colors {
+        display: none;
+    }
+    .header__desc {
+        width: 100%;
+    }
+    .header__cta {
+        margin-inline: auto
+    }
+}
+
+@media (max-width: 768px) {
+    .desc__section, .desc__section:nth-child(even) {
+        grid-template-areas: "text text";
+    }
+    .desc__deco {
+        display: none;
+    }
+    .desc__section div:nth-child(2) {
+        display: none;
+    }
+    #searchBar, #homeButton, #visitButton {
+        display: none;
+    }
+    .header__title, .header__desc {
+        text-align: center;
+    }
+    .header__desc {
+        max-width: 100%;
+    }
+    .desc::before {
+        top: -320px;
+    }
 }
 
 .colorsRed{
     width: 300px;
     height: 200px;
-    background-color: #EF4444;
+    background-color: var(--primary);
     border-radius: 30px;
     position: absolute;
     top: 20%;
@@ -266,6 +485,8 @@ i {
     top: 40%;
     left: 50px;
 }
+
+
 .font-primary {
     font-family: "EB Garamond";
 }
@@ -283,7 +504,7 @@ i {
     border-radius: 100%;
     height: 50px;
     width: 50px;
-    border: 2px solid #ef4444;
+    border: 2px solid var(--primary);
     z-index: 50;
 }
 .avatar-img{
@@ -298,7 +519,7 @@ i {
     border-radius: 100%;
     height: 150px;
     width: 150px;
-    border: 2px solid #ef4444;
+    border: 2px solid var(--primary);
 }
 .avatarProfile-img{
     width: 150px;
@@ -326,7 +547,7 @@ i {
 .profileName{
     font-family: 'EB Garamond';
     font-size: 2.5rem;
-    color: #ef4444;
+    color: var(--primary);
     z-index: 1;
     margin-bottom: 0;
 }
@@ -334,7 +555,7 @@ i {
 .profileEmail{
     font-family: 'EB Garamond';
     font-size: 1rem;
-    color: #ef4444;
+    color: var(--primary);
     z-index: 1;
     margin-top: 0;
     margin-bottom: 50px;
@@ -358,7 +579,7 @@ i {
     border-radius: 100%;
     width: 1000px;
     height: 1000px;
-    background-color: #ef4444;
+    background-color: var(--primary);
     position: absolute;
     top: -125%;
     z-index: 0;
@@ -408,7 +629,7 @@ i {
     position: absolute;
     top: 5%;
     font-family: 'EB Garamond';
-    color: #ef4444;
+    color: var(--primary);
     font-size: 2.5rem;
 }
 
@@ -438,7 +659,7 @@ i {
 
 .validate{
     margin-top: 30px;
-    background-color: #ef4444;
+    background-color: var(--primary);
     color: white;
     width: 150px;
     height: 30px;
@@ -470,7 +691,7 @@ i {
     position: absolute;
     top: 5%;
     font-family: 'EB Garamond';
-    color: #ef4444;
+    color: var(--primary);
     font-size: 2.5rem;
 }
 
@@ -531,70 +752,25 @@ i {
 
 .oeuvreNom{
     text-decoration: none;
-    color: #ef4444;
+    color: var(--primary);
     font-family: sans-serif;
     text-transform: capitalize;
     text-align: center;
     font-size: 2rem;
 }
 
-.container404{
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    border: 1px solid red;
+.container404 {
+    display: grid;
+    place-content: center;
+    place-items: center;
+    width: 100%;
+    height: 100%;
     position: relative;
+    padding-inline: 2rem;
 }
 
 .message404{
     font-family: 'EB Garamond';
-    font-size: 3rem;
-    color: #EF4444;
-    opacity: 0.7;
-    font-size:20rem;
-    position: absolute;
-    top: 20%;
-    left: 32%;
-}
-
-.square404{
-    width: 150px;
-    height: 150px;
-    background-color: #036441;
-    opacity: 0.7;
-    position: absolute;
-    left: 85%;
-    top: 80%;
-}
-
-.square404:nth-child(2){
-    width: 150px;
-    height: 150px;
-    background-color:#FCAB10;
-    opacity: 0.7;
-    position: absolute;
-    border-radius: 100%;
-    left: 75%;
-    top: 80%;
-}
-
-.square404:nth-child(3){
-    width: 150px;
-    height: 150px;
-    background-color:#EF4444;
-    opacity: 0.7;
-    position: absolute;
-    left: 85%;
-    top: 60%;
-}
-
-.square404:nth-child(4){
-    width: 150px;
-    height: 150px;
-    background-color:#134778;
-    opacity: 0.7;
-    position: absolute;
-    left: 75%;
-    top: 60%;
+    color: var(--primary);
+    font-size: clamp(1rem, 40vw, 20rem);
 }
