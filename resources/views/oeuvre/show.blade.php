@@ -92,11 +92,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="texte">Commentaire</label>
-                                                    <textarea type="text" name="texte" class="form-control" id="texte">Commentez l'oeuvre
-                            </textarea>
+                                                    <textarea type="text" name="texte" class="form-control" id="texte">Commentez l'oeuvre</textarea>
                                                 </div>
                                                 <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->id}}">
-                                                <input type="hidden" name="valide" id="valide" value="false">
+                                                <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->salle_id}}">
+                                                <input
                                                 <button type="submit" class="btn btn-primary">Valider</button>
                                             </form>
 

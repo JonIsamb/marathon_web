@@ -51,8 +51,8 @@ html, body, #app {
   margin-top:70vh;
   text-align:center;
   color: white;
-    
-  
+
+
 
 }
 .comm {
@@ -63,7 +63,7 @@ html, body, #app {
   padding: 10px;
   padding-inline:40px;
   margin-top:20px;
-  
+
 }
 .comm h3{
   text-align:center;
@@ -169,7 +169,7 @@ svg {
     height: 60vh;
     top:5vh;
   }
- 
+
   #like{
     position:absolute;
     top: 55vh;
@@ -273,7 +273,7 @@ svg {
     position:absolute;
     left:0px;
     visibility: Hidden;
-    
+
   }
   .bx-check{
     position: relative;
@@ -308,7 +308,7 @@ svg {
   }
   #detailTxt{
     margin-top:40vh;
-    
+
   }
   #detailImg {
   width:100%;
@@ -345,10 +345,10 @@ svg {
 
 
 @section('content')
-    
+
 <div id="scrollDist">
   <div id="app">
-    
+
     <div id="imgGroup">
   @if(($salle->id)+1<=5)
       <img src="{{asset('storage/images/salles/portal.png')}}" draggable="false" data-to="{{($salle->id)+1}}" data-x="250" data-y="-300">
@@ -360,12 +360,12 @@ svg {
       <img src="{{asset('storage/'.$oeuvre->media_url)}}" draggable="false" data-id="{{$oeuvre->id}}" data-desc="{{$oeuvre->description}}" data-x="{{$oeuvre->coord_x}}" data-y="{{$oeuvre->coord_Y}}" alt="{{$oeuvre->nom}}">
     @endforeach
     </div>
-    
+
   <div id="detail">
     <div id="close"><i class='bx bx-x' ></i></div>
     <div id="detailImg"></div>
     @auth()
-        <form id="like" method="POST" action=""> <!-- route('user.like') --> 
+        <form id="like" method="POST" action="{{route('user.like')}}">
             @csrf
             <input type="hidden" name="oeuvre_id" class="oeuvre_id" value="">
             <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
@@ -376,52 +376,54 @@ svg {
     <div id="detailDesc"></div>
     <div id="comments_title"><h2>Commentaires</h2></div>
     <div id="sortComments">
-      <h2 >par date</h2> 
+      <h2 >par date</h2>
       <h2 id="sortAsc"><i class='bx bxs-chevron-up' ></i></h2>
       <h2 id="sortDesc"><i class='bx bxs-chevron-down' ></i></h2>
     </div>
     <div id="detailComms"></div>
     @auth()
-    <div id="detailInput">
-      <h1 id="commentaire_cta">Participez à la discussion</h1>
-      <form method="POST" action="{{route('commentaire.store')}}">
-          @csrf
-          <input type="text" name="titre" class="form-control" id="titre" placeholder="Titre">
-    
-          <textarea type="text" name="texte" class="form-control" id="texte" placeholder="Commentez"></textarea>
-    
-          <input type="hidden" name="oeuvre_id" class="oeuvre_id" value="{{$oeuvre->id}}">
-          <button type="submit" id="valider">Valider</button>
-      </form>
-    </div>
-    @endauth
+        <div id="detailInput">
+            <h1 id="commentaire_cta">Participez à la discussion</h1>
+            <form method="POST" action="{{route('commentaire.store')}}">
+                @csrf
+                <input type="text" name="titre" class="form-control" id="titre" placeholder="Titre">
+
+                <textarea type="text" name="texte" class="form-control" id="texte" placeholder="Commentez"></textarea>
+
+                <input type="hidden" name="oeuvre_id" class="oeuvre_id" value="{{$oeuvre->id}}">
+                <input type="hidden" name="salle_id" id="salle_id" value="{{$oeuvre->salle_id}}">
+                <input type="hidden" name="user_id" id="user_id" value="{{Auth::user() -> id}}">
+                <button type="submit" id="valider">Valider</button>
+            </form>
+        </div>
+      @endauth
   </div>
-  
+
 </div>
 
 <script>
   let commentaires = [
-      <?php  
-    foreach($commentaires as $comm){
-      if($comm->valide){
-        echo "{ titre: \"". $comm->titre. "\", contenu: \"". $comm->contenu . "\", id: \"". $comm->id . "\", idOeuvre:\"".$comm->oeuvre_id."\", date: \"". $comm->date_post . "\", valid:\"".$comm->valide."\"}," ;
-      } else {
-        if($user->admin){
-          echo "{ titre: \"". $comm->titre. "\", contenu: \"". $comm->contenu . "\", id: \"". $comm->id . "\", idOeuvre:\"".$comm->oeuvre_id."\", date: \"". $comm->date_post . "\", valid:\"".$comm->valide."\"}," ;
-        }
-      }
-    }
-    ?>];
+      @foreach($commentaires as $comm)
+          @if($comm->valide)
+              { 'titre':  "{{$comm->titre }}", 'contenu': "{{$comm->contenu}}", 'id': "{{$comm->id}}", 'idOeuvre': "{{$comm->oeuvre_id}}", 'date': "{{$comm->date_post}}", 'valid': "{{$comm->valide}}"},
+          @else
+            @if(Auth::user() -> admin)
+              { 'titre':  "{{$comm->titre }}", 'contenu': "{{$comm->contenu}}", 'id': "{{$comm->id}}", 'idOeuvre': "{{$comm->oeuvre_id}}", 'date': "{{$comm->date_post}}", 'valid': "{{$comm->valide}}"},
+            @endif
+          @endif
+        @endforeach
+    ];
+  console.log(commentaires);
     window.onload = () => {
       gsap.registerPlugin(ScrollTrigger);
       gsap.set('#scrollDist', {
         width: '100%',
         height: gsap.getProperty('#app', 'height'), // apply the height of the image stack
         onComplete: () => {
-          gsap.set('#app, #imgGroup', {opacity:1, position:'fixed', width:'100%', height:'100%', top:0, left:0, perspective:300}) 
+          gsap.set('#app, #imgGroup', {opacity:1, position:'fixed', width:'100%', height:'100%', top:0, left:0, perspective:300})
           gsap.set('#app img', {
             position: 'absolute',
-            attr: { 
+            attr: {
               id: (i,t,a) => { //use GSAP's built-in loop to setup each image
                 initImg(i,t);
                 return 'img'+i;
@@ -429,7 +431,7 @@ svg {
             }
           })
         }
-          
+
       })
 
       gsap.timeline({
@@ -443,18 +445,18 @@ svg {
         }
       })
       .fromTo('.imgBox', {z:-3000}, {z:350, stagger:-0.3, ease:'none'}, 0.3)
-      .fromTo('.imgBox img', {scale:3}, {scale:1.15, stagger:-0.3, ease:'none'}, 0.3)      
+      .fromTo('.imgBox img', {scale:3}, {scale:1.15, stagger:-0.3, ease:'none'}, 0.3)
       .to('.imgBox', {duration:0, pointerEvents:'auto', stagger:-0.3}, 0.5)
       .from('.imgBox img', {duration:0.3, opacity:0, stagger:-0.3, ease:'power1.inOut'}, 0.3)
-      .to('.imgBox img', {duration:0.1, opacity:0, stagger:-0.3, ease:'expo.inOut'}, 1.2)      
+      .to('.imgBox img', {duration:0.1, opacity:0, stagger:-0.3, ease:'expo.inOut'}, 1.2)
       .to('.imgBox', {duration:0, pointerEvents:'none', stagger:-0.3}, 1.27)
       .add('end')
- 
+
       // intro animation
       //gsap.fromTo(window, {scrollFrom:gsap.getProperty('#box1','height')} {duration:2.4, scrollTo:gsap.getProperty('#box1','height'), ease:'power1.out'});
       //gsap.from('.imgBox', {duration:0.2, opacity:0, stagger:0.06, ease:'power1.inOut'})
     }
-  
+
   function initImg(i,t){
     const box = document.createElement('div') // make a container div
     box.appendChild(t) // move the target image into the container
@@ -475,20 +477,20 @@ svg {
         perspective:500
       })
 
-    
+
     t.onmousedown =()=> {
       gsap.to(t, {z:-25, ease:'power2'})
-      
+
     }
-    
+
     t.onmouseup =()=> gsap.to(t, {z:0, ease:'power1.inOut'})
-    
-    
+
+
     t.onclick =()=> showDetail(t)
-  }  
-  
+  }
+
   function showDetail(t){
-    @auth 
+    @auth
     for (elem of document.getElementsByClassName("oeuvre_id")){
       elem.value = t.dataset.id;
     }
@@ -499,7 +501,7 @@ svg {
       } else{
         window.location.replace("/salle/"+t.dataset.to);
       }
-      
+
     } else {
       gsap.timeline() //detailDesc
         .set('#detailTxt', {textContent:t.alt}, 0)
@@ -538,8 +540,8 @@ svg {
               commId.setAttribute("value", comm.id);
 
               form.appendChild(commId);
-            
-          
+
+
 
               let validate = document.createElement("input");
               validate.setAttribute("type", "submit");
@@ -553,9 +555,9 @@ svg {
               checkmark.classList.add("bx");
               checkmark.classList.add("bx-check");
               checkmark.appendChild(validate);
-              
+
               form.appendChild(checkmark);
-              
+
 
               let reject = document.createElement("input");
               reject.setAttribute("type", "submit");
@@ -586,47 +588,47 @@ svg {
     }
 
   }
-  
+
   function closeDetail(){
     gsap.timeline()
         .to('#detailTxt', {duration:0.3, opacity:0}, 0)
-        .to('#detailDesc', {duration:0.3, opacity:0}, 0)   
-        .to('#detailComms', {duration:0.3, opacity:0}, 0)   
-        .to('#detailInput', {duration:0.3, opacity:0}, 0)       
+        .to('#detailDesc', {duration:0.3, opacity:0}, 0)
+        .to('#detailComms', {duration:0.3, opacity:0}, 0)
+        .to('#detailInput', {duration:0.3, opacity:0}, 0)
         .to('#detailImg', {duration:0.3, y:'-100%', ease:'power1.in'}, 0)
         .to('#detail', {duration:0.3, top:'-100%', ease:'expo.in'}, 0.1)
     document.body.style.overflow = "scroll";
     document.getElementById("detail").style.overflow = "hidden";
   }
   document.getElementById('close').onclick = closeDetail;
-    
+
   if (ScrollTrigger.isTouch==1) { // on mobile, hide mouse follower + remove the x/y positioning from the images
-    
+
     gsap.set('.imgBox', {x:0, y:0})
   } else {
-    
+
     // quickTo can be used to optimize x/y movement on the cursor...but it doesn't work on fancier props like 'xPercent'
 
-    
-    window.onmousemove =(e)=> {      
+
+    window.onmousemove =(e)=> {
       gsap.to('.imgBox', { // move + rotate imgBoxes relative to mouse position
         xPercent:-e.clientX/innerWidth*100,
         yPercent:-25-e.clientY/innerHeight*50,
         rotateX:8-e.clientY/innerHeight*16,
         rotateY:-8+e.clientX/innerWidth*16
       })
-      
+
       gsap.to('.imgBox img', { // move images inside each imgBox, creates additional parallax effect
         xPercent:-e.clientX/innerWidth*10,
         yPercent:-5-e.clientY/innerHeight*10
       })
-      
-      
+
+
     }
   }
 
 var wheelDistance = function(evt) {
- 
+
  // Detail describes the scroll precisely
  // Positive for downward scroll
  // Negative for upward scroll
