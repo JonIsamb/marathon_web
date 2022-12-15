@@ -33,10 +33,10 @@
                 <h1>Capitol Art Gallery</h1>
             </div>
             <div class="center">
-                <input id="searchBar" type="text" placeholder="Rechercher..."><a href="">
+                <input id="searchBar" type="text" placeholder="Rechercher..."><a href=""></a>
             </div>
             <div class="right">
-                <a href="{{ route('user.show',Auth::user()->id) }}"><div class="avatar"><img class="avatar-img" src="{{asset('storage/images/avatars/avatar-1.png')}}" alt=""></div></a>
+                <a href="{{ route('user.show',Auth::user()->id) }}"><div class="avatar"><img class="avatar-img" src="{{asset('storage/'.Auth::user()->avatar)}}" alt=""></div></a>
                 <a id="logoutButton" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Déconnexion</a>
                 <form id="logout-form" action="{{route('logout')}}"
                 method="POST" style="display: none;"> {{ csrf_field() }}
