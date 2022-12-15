@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 
 Route::get('/home', function () {
-    return view('home');
+    return view('accueil');
 })->middleware(['auth'])->name('home');
 
 
