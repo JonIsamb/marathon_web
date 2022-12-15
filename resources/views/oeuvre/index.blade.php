@@ -16,8 +16,8 @@
     @endif
         @if(!empty($oeuvresDescription))
             @foreach($oeuvresDescription as $oeuvre)
-            <a href="{{route('salle.show',$oeuvre->salle_id)}}#{{$oeuvre->id}}">
-                <div class="oeuvreCard">
+            <a class="oeuvreCard" href="{{route('salle.show',$oeuvre->salle_id)}}#{{$oeuvre->id}}">
+                <div>
                     <div class="oeuvreImage"><img src="{{asset("storage/".$oeuvre->media_url)}}"></div>
                     <h2 class="oeuvreNom">{{ $oeuvre->nom }}</h2>
                 </div>
@@ -26,8 +26,8 @@
         @endif
         @if(!empty($oeuvresAuteur))
             @foreach($oeuvresAuteur as $oeuvre)
-            <a href="{{route('salle.show',$oeuvre->salle_id)}}#{{$oeuvre->id}}">
-                <div class="oeuvreCard">
+            <a class="oeuvreCard" href="{{route('salle.show',$oeuvre->salle_id)}}#{{$oeuvre->id}}">
+                <div>
                     <div class="oeuvreImage"><img src="{{asset("storage/".$oeuvre->media_url)}}"></div>
                     <h2 class="oeuvreNom">{{ $oeuvre->nom }}</h2>
                 </div>
