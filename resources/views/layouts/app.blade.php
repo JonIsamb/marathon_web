@@ -23,10 +23,10 @@
             </div>
             <div class="center">
                 <a id="visitButton" href="{{ route('salle.show', 1) }}"><i class='bx bx-play-circle'></i></a>
-                <a id="homeButton" href="{{ route('home') }}"><i class='bx bxs-home' ></a>
+                <a id="homeButton" href="{{ route('home') }}"><i class='bx bxs-home'></i></a>
                 <input id="searchBar" type="text" placeholder="Rechercher...">
             </div>
-            <div>
+            <div class="right">
                 <a id="loginButton" href="{{ route('login') }}">SE CONNECTER</a>
                 <a id="registerButton" href="{{ route('register') }}">S'INSCRIRE</a>
             </div>
