@@ -346,21 +346,21 @@ svg {
 
 @section('content')
     
-<div id="scrollDist"></div>
-<div id="app">
-  
-  <div id="imgGroup">
-   @if(($salle->id)+1<=5)
-    <img src="{{asset('storage/images/salles/portal.png')}}" draggable="false" data-to="{{($salle->id)+1}}" data-x="250" data-y="-300">
-@else
-<img src="{{asset('storage/images/salles/portalO.png')}}" draggable="false" data-to="{{($salle->id)+1}}" data-x="250" data-y="-300">
+<div id="scrollDist">
+  <div id="app">
+    
+    <div id="imgGroup">
+  @if(($salle->id)+1<=5)
+      <img src="{{asset('storage/images/salles/portal.png')}}" draggable="false" data-to="{{($salle->id)+1}}" data-x="250" data-y="-300">
+  @else
+      <img src="{{asset('storage/images/salles/portalO.png')}}" draggable="false" data-to="{{($salle->id)+1}}" data-x="250" data-y="-300">
 
-@endif
+  @endif
     @foreach ($oeuvres as $oeuvre)
-    <img src="{{asset('storage/'.$oeuvre->media_url)}}" draggable="false" data-id="{{$oeuvre->id}}" data-desc="{{$oeuvre->description}}" data-x="{{$oeuvre->coord_x}}" data-y="{{$oeuvre->coord_Y}}" alt="{{$oeuvre->nom}}">
+      <img src="{{asset('storage/'.$oeuvre->media_url)}}" draggable="false" data-id="{{$oeuvre->id}}" data-desc="{{$oeuvre->description}}" data-x="{{$oeuvre->coord_x}}" data-y="{{$oeuvre->coord_Y}}" alt="{{$oeuvre->nom}}">
     @endforeach
-</div>
-  
+    </div>
+    
   <div id="detail">
     <div id="close"><i class='bx bx-x' ></i></div>
     <div id="detailImg"></div>
@@ -378,22 +378,19 @@ svg {
     <div id="sortComments">
       <h2 >par date</h2> 
       <h2 id="sortAsc"><i class='bx bxs-chevron-up' ></i></h2>
-      
       <h2 id="sortDesc"><i class='bx bxs-chevron-down' ></i></h2>
     </div>
-    <div id="detailComms">
-    </div>
+    <div id="detailComms"></div>
     @auth()
     <div id="detailInput">
       <h1 id="commentaire_cta">Participez à la discussion</h1>
       <form method="POST" action="{{route('commentaire.store')}}">
           @csrf
-    
           <input type="text" name="titre" class="form-control" id="titre" placeholder="Titre">
     
           <textarea type="text" name="texte" class="form-control" id="texte" placeholder="Commentez"></textarea>
     
-          <input type="hidden" name="oeuvre_id" class="oeuvre_id" value="">
+          <input type="hidden" name="oeuvre_id" class="oeuvre_id" value="{{$oeuvre->id}}">
           <button type="submit" id="valider">Valider</button>
       </form>
     </div>
@@ -405,46 +402,46 @@ svg {
 <script>
   let commentaires = [
       <?php  
-    
-    
     foreach($commentaires as $comm){
-      if($comm->valide ){
+      if($comm->valide){
         echo "{ titre: \"". $comm->titre. "\", contenu: \"". $comm->contenu . "\", id: \"". $comm->id . "\", idOeuvre:\"".$comm->oeuvre_id."\", date: \"". $comm->date_post . "\", valid:\"".$comm->valide."\"}," ;
       } else {
         if($user->admin){
           echo "{ titre: \"". $comm->titre. "\", contenu: \"". $comm->contenu . "\", id: \"". $comm->id . "\", idOeuvre:\"".$comm->oeuvre_id."\", date: \"". $comm->date_post . "\", valid:\"".$comm->valide."\"}," ;
-      
         }
       }
-
     }
     ?>];
-    window.onload=()=>{
-      console.log(ScrollTrigger);
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.set('#scrollDist', {
-    width: '100%',
-    height: gsap.getProperty('#app', 'height'), // apply the height of the image stack
-    onComplete:()=>{
-      gsap.set('#app, #imgGroup', {opacity:1, position:'fixed', width:'100%', height:'100%', top:0, left:0, perspective:300}) 
-      gsap.set('#app img', {
-        position: 'absolute',
-        attr:{ id:(i,t,a)=>{ //use GSAP's built-in loop to setup each image
-          initImg(i,t);
-          return 'img'+i;
-        }}
+    window.onload = () => {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.set('#scrollDist', {
+        width: '100%',
+        height: gsap.getProperty('#app', 'height'), // apply the height of the image stack
+        onComplete: () => {
+          gsap.set('#app, #imgGroup', {opacity:1, position:'fixed', width:'100%', height:'100%', top:0, left:0, perspective:300}) 
+          gsap.set('#app img', {
+            position: 'absolute',
+            attr: { 
+              id: (i,t,a) => { //use GSAP's built-in loop to setup each image
+                initImg(i,t);
+                return 'img'+i;
+              }
+            }
+          })
+        }
+          
       })
 
       gsap.timeline({
         defaults:{ duration:1 },
         onUpdate:()=>{ }, //close detail view on scroll
         scrollTrigger:{
-        trigger: '#scrollDist',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1
-      }})
-  
+          trigger: '#scrollDist',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1
+        }
+      })
       .fromTo('.imgBox', {z:-3000}, {z:350, stagger:-0.3, ease:'none'}, 0.3)
       .fromTo('.imgBox img', {scale:3}, {scale:1.15, stagger:-0.3, ease:'none'}, 0.3)      
       .to('.imgBox', {duration:0, pointerEvents:'auto', stagger:-0.3}, 0.5)
@@ -456,9 +453,7 @@ svg {
       // intro animation
       //gsap.fromTo(window, {scrollFrom:gsap.getProperty('#box1','height')} {duration:2.4, scrollTo:gsap.getProperty('#box1','height'), ease:'power1.out'});
       //gsap.from('.imgBox', {duration:0.2, opacity:0, stagger:0.06, ease:'power1.inOut'})
-    }  
-
-  })  
+    }
   
   function initImg(i,t){
     const box = document.createElement('div') // make a container div
@@ -531,57 +526,58 @@ svg {
           comm_container.appendChild(content);
         @auth()
           @if(Auth::user()->admin==1)
-          if(!parseInt(comm.valide)){
-            let form = document.createElement("form");
-            form.setAttribute("method", "post");
-            form.setAttribute("action", "route('user.validate')");
-            form.classList.add("AR_form");
+            if(!parseInt(comm.valide)){
+              let form = document.createElement("form");
+              form.setAttribute("method", "post");
+              form.setAttribute("action", "route('user.validate')");
+              form.classList.add("AR_form");
 
-            let commId = document.createElement("input");
-            commId.setAttribute("type", "hidden");
-            commId.setAttribute("name", "commId");
-            commId.setAttribute("value", comm.id);
+              let commId = document.createElement("input");
+              commId.setAttribute("type", "hidden");
+              commId.setAttribute("name", "commId");
+              commId.setAttribute("value", comm.id);
 
-            form.appendChild(commId);
+              form.appendChild(commId);
+            
+          
+
+              let validate = document.createElement("input");
+              validate.setAttribute("type", "submit");
+              validate.setAttribute("name", "submit");
+              validate.innerHtml = "<i class='bx bx-check'></i>";
+              validate.id="submit_validate";
+              validate.classList.add("validate");
+
+
+              let checkmark = document.createElement('i');
+              checkmark.classList.add("bx");
+              checkmark.classList.add("bx-check");
+              checkmark.appendChild(validate);
+              
+              form.appendChild(checkmark);
+              
+
+              let reject = document.createElement("input");
+              reject.setAttribute("type", "submit");
+              reject.setAttribute("name", "submit");
+              reject.classList.add("reject");
+              reject.id="submit_reject";
+              reject.innerHtml = "<i class='bx bxs-trash'></i>";
+
+              let trash = document.createElement('i');
+              trash.classList.add("bx");
+              trash.classList.add("bxs-trash");
+              trash.appendChild(reject);
+
+              form.appendChild(trash);
+
+              let csrf = document.getElementsByName("_token")[0].cloneNode();
+              form.appendChild(csrf);
+              comm_container.appendChild(form);
+
+            }
             @endif
-        @endauth
-
-            let validate = document.createElement("input");
-            validate.setAttribute("type", "submit");
-            validate.setAttribute("name", "submit");
-            validate.innerHtml = "<i class='bx bx-check'></i>";
-            validate.id="submit_validate";
-            validate.classList.add("validate");
-
-
-            let checkmark = document.createElement('i');
-            checkmark.classList.add("bx");
-            checkmark.classList.add("bx-check");
-            checkmark.appendChild(validate);
-            
-            form.appendChild(checkmark);
-            
-
-            let reject = document.createElement("input");
-            reject.setAttribute("type", "submit");
-            reject.setAttribute("name", "submit");
-            reject.classList.add("reject");
-            reject.id="submit_reject";
-            reject.innerHtml = "<i class='bx bxs-trash'></i>";
-
-            let trash = document.createElement('i');
-            trash.classList.add("bx");
-            trash.classList.add("bxs-trash");
-            trash.appendChild(reject);
-
-            form.appendChild(trash);
-
-            let csrf = document.getElementsByName("_token")[0].cloneNode();
-            form.appendChild(csrf);
-            comm_container.appendChild(form);
-
-          }
-
+            @endauth
 
           comms_target.appendChild(comm_container);
         }
@@ -628,7 +624,7 @@ svg {
       
     }
   }
-}
+
 var wheelDistance = function(evt) {
  
  // Detail describes the scroll precisely
@@ -641,7 +637,7 @@ var wheelDistance = function(evt) {
 }
 
 // Adding event listener for some element
-var speed = document.addEventListener(
+let speed = document.addEventListener(
     "DOMMouseScroll", wheelDistance);
 
 
@@ -656,5 +652,6 @@ var speed = document.addEventListener(
       sortAsc.classList.remove("active");
       sortDesc.classList.add("active");
     });
+
 </script>
 @endsection

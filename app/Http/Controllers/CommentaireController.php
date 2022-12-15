@@ -25,7 +25,7 @@ class CommentaireController extends Controller
 
         $com->titre = $request->titre;
         $com->contenu = $request->texte;
-        $com->valide=false;
+        $com->valide=0;
         $com->user_id=Auth::user()->id;
         $com->oeuvre_id = $request->oeuvre_id;
 
