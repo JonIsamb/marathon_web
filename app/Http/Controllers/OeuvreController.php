@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Commentaire;
 use App\Models\Oeuvre;
 use App\Models\Salle;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class OeuvreController extends Controller
 {
+    static $compteurX = 0;
+
+    static $compteurY = 0;
+
     public function index(Request $request){
         $param=$request->get('search',null);
         $paramLieu=$request->get('lieu',null);
@@ -38,27 +45,58 @@ class OeuvreController extends Controller
     }
 
     public function store(Request $request){
-
         $this->validate(
             $request,
             [
-                'nom'=>'required',
-                'media_url'=>'required',
-                'thumbnail_url'=> 'required',
-                'description'=>'required',
+                'nom' => 'required',
+                'media' => 'required',
+                'description' => 'required',
+                'auteur' => 'required',
             ]
         );
+
+
+
         $oeuvre = new Oeuvre();
 
-        $com->titre = $request->titre;
-        $com->contenu = $request->texte;
-        $com->valide=false;
-        $com->user_id=Auth::user()->id;
-        $com->oeuvre_id = $request->oeuvre_id;
+        $oeuvre->nom = $request->nom;
+        $oeuvre->valide=false;
+        $oeuvre->description = $request->description;
 
-        $com->save();
+        if (self::$compteurX % 2 == 0){
+            $oeuvre->coord_x = 300;
+        } else {
+            $oeuvre->coord_x = -300;
+        }
+        self::$compteurX++;
 
-        return redirect()->route('oeuvre.show',[$request->oeuvre_id]);
+        if (self::$compteurY % 4 == 0 or self::$compteurY % 4 == 1){
+            $oeuvre->coord_y = 300;
+        } else {
+            $oeuvre->coord_y = -300;
+        }
+        self::$compteurY++;
+
+        if ($request->hasFile('media') && $request->file('media')->isValid()) {
+            $file = $request->file('media');
+        } else {
+            $msg = "Aucun fichier téléchargé";
+            return redirect()->route('salle.show', [5])
+                ->with('type', 'primary')
+                ->with('msg', 'Visiteur non modifié ('. $msg . ')');
+        }
+        $nom = 'oeuvre';
+        $now = time();
+        $nom = sprintf("%s_%d.%s", $nom, $now, $file->extension());
+
+        $file->storeAs('images/oeuvres', $nom);
+        $oeuvre->media_url = 'images/oeuvres/'.$nom;
+        $oeuvre->thumbnail_url = 'images/oeuvres/'.$nom;
+
+        $file->store('oeuvres');
+        $oeuvre->save();
+
+        return redirect()->route('salle.show',[5]);
     }
 
     public function show($id)
