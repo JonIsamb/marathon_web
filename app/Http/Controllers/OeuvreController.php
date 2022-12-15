@@ -61,8 +61,6 @@ class OeuvreController extends Controller
         return redirect()->route('oeuvre.show',[$request->oeuvre_id]);
     }
 
->>>>>>> app/Http/Controllers/OeuvreController.php
-
     public function show($id)
     {
         $oeuvre = Oeuvre::find($id);
