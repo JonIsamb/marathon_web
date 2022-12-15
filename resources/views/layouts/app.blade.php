@@ -15,6 +15,7 @@
     @yield("css")
 </head>
 <body>
+
 <nav>
         @guest
             <div class="logo">
@@ -23,8 +24,13 @@
             </div>
             <div class="center">
                 <a id="visitButton" href="{{ route('salle.show', 1) }}"><i class='bx bx-play-circle'></i></a>
-                <a id="homeButton" href="{{ route('home') }}"><i class='bx bxs-home'></i></a>
-                <input id="searchBar" type="text" placeholder="Rechercher...">
+                <a id="homeButton" href="{{route('accueil')}}"><i class='bx bxs-home'></i></a>
+            <form action="{{route('oeuvre.index')}}" method="get">
+                <input name="search" id="searchBar" type="text" placeholder="Rechercher...">
+                <input type="submit" value="Recherche" style="display: none">
+            </form>
+
+                
             </div>
             <div class="right">
                 <a id="loginButton" href="{{ route('login') }}">SE CONNECTER</a>
@@ -37,8 +43,12 @@
             </div>
             <div class="center">
                 <a id="visitButton" href="{{ route('salle.show', 1) }}"><i class='bx bx-play-circle'></i></a>
-                <a id="homeButton" href="{{ route('home') }}"><i class='bx bxs-home' ></i></a>
-                <input id="searchBar" type="text" placeholder="Rechercher...">
+                <a id="homeButton" href="{{route('accueil')}}"><i class='bx bxs-home' ></i></a>
+                <form action="{{route('oeuvre.index')}}" method="get">
+                    <input name="search" id="searchBar" type="text" placeholder="Rechercher...">
+                    <input type="submit" value="Recherche" style="display: none">
+                </form>
+    
             </div>
             <div class="right">
                 <a href="{{ route('user.show',Auth::user()->id) }}"><div class="avatar"><img class="avatar-img" src="{{asset('storage/'.Auth::user()->avatar)}}" alt=""></div></a>
