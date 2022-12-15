@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommentaireController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +24,25 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 })->middleware(['auth'])->name('home');
+
+
+
+
+Route::post('oeuvre/commentaire/valide', [CommentaireController::class, 'valide']) ->name('commentaire.valide');
+Route::post('oeuvre/commentaire/supprime', [CommentaireController::class, 'supprime']) ->name('commentaire.supprime');
+
+
+Route::resource('salle',\App\Http\Controllers\SalleController::class);
+
+
+Route::resource('commentaire', \App\Http\Controllers\CommentaireController::class);
+
+
+Route::resource('oeuvre', \App\Http\Controllers\OeuvreController::class);
+
+Route::resource('user', \App\Http\Controllers\UserController::class);
+Route::post('user/like', [UserController::class, 'like']) ->name('user.like');
+
+
+Route::post('/user/{id}/upload', [UserController::class, 'upload'])->name('user.upload');
+
