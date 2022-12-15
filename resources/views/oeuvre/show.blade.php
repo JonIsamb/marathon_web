@@ -23,21 +23,43 @@
         </tr>
         </tbody>
     </table>
+    @auth()
+        <form method="POST" action="{{route('user.like')}}">
+            @csrf
+            <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->id}}">
+            <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
+            <button type="submit" class="btn btn-primary">Liker</button>
+        </form>
+    @endauth
     <ul>
         @foreach($commentaires as $commentaire)
 
             <div class="mr-5 pr-5" style="width: 50%">
                 <div style="background-color: #fff;	border-top: 2px dashed #8c8b8b;">
-                <div class="list-group">
-                    <strong>titre </strong>{{ $commentaire->titre }}
-                    <strong>texte</strong>  {{ $commentaire->texte }}
+                    <div class="list-group">
+                        <strong>titre </strong>{{ $commentaire->titre }}
+                        <strong>texte</strong>  {{ $commentaire->contenu }}
+                    </div>
                 </div>
-
-
-
-            </div>
+                @auth()
+                    @if (Auth::user()->admin == 1 && $commentaire->valide == 0)
+                        <form method="POST" action="{{route('commentaire.valide')}}">
+                            @csrf
+                            <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->id}}">
+                            <input type="hidden" name="commentaire_id" id="commentaire_id" value="{{$commentaire->id}}">
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                        </form>
+                        <form method="POST" action="{{route('commentaire.supprime')}}">
+                            @csrf
+                            <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->id}}">
+                            <input type="hidden" name="commentaire_id" id="commentaire_id" value="{{$commentaire->id}}">
+                            <button type="submit" class="btn btn-primary">Supprimer</button>
+                        </form>
+                    @endif
+                @endauth
             </div>
         @endforeach
+
     </ul>
     @guest
         <p>Connectez-vous pour commenter .</p>
@@ -70,10 +92,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="texte">Commentaire</label>
-                                                    <textarea type="text" name="texte" class="form-control" id="texte">Commentez l'oeuvre
-                            </textarea>
+                                                    <textarea type="text" name="texte" class="form-control" id="texte">Commentez l'oeuvre</textarea>
                                                 </div>
                                                 <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->id}}">
+                                                <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->salle_id}}">
+                                                <input
                                                 <button type="submit" class="btn btn-primary">Valider</button>
                                             </form>
 

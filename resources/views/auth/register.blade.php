@@ -2,46 +2,27 @@
 
 @section('content')
 
-<div>
-    @include("_errors")
-    <form action="{{route('register')}}" method="post">
-        @csrf
-        <div>
-            <h1>Création accès musée</h1>
-            <div>
-                Si vous avez déjà un compte, <a href="{{route('login')}}">connectez-vous</a>.
+<div class="container">
+    <div class="registerCard">
+        @include("_errors")
+        <form action="{{route('register')}}" method="post">
+            @csrf
+            <h1>S'inscrire</h1>
+
+    <div class="inputs">
+                
+                <x-form-control-label class="loginInput" label="Nom :" name="name" />
+            <!-- Email Address -->
+                <x-form-control-label class="loginInput" label="Adresse mail :" name="email" />
+
+            <!-- Password -->
+                <x-form-control-label class="loginInput" label="Mot de passe :" name="password" />
+            <!-- Confirm Password -->
+                <x-form-control-label class="loginInput" label="Confirmation du mot de passe :" name="password_confirmation" />
             </div>
-        </div>
-        <div>
-            <label for="name">Nom</label>
-            <input type="text" name="name" id="name">
-        </div>
-
-        <!-- Email Address -->
-        <div>
-            <label for="email">Adresse mail</label>
-            <input type="email" name="email" id="email">
-        </div>
-
-
-        <!-- Password -->
-        <div>
-            <label for="pwd">Mot de passe</label>
-            <input type="password" name="password" id="pwd">
-        </div>
-
-        <!-- Confirm Password -->
-        <div>
-            <label for="conf_pwd">Confirmation mot de passe</label>
-            <input type="password" name="password_confirmation" id="conf_pwd">
-        </div>
-        <div>
-            <input type="submit" value="Enregistrement">
-        </div>
-    </form>
-    <div>
-        <a href="{{route('accueil')}}">Retour à la page principale</a>
+                <input class="validate" type="submit" value="Enregistrement">
+                <h2>Si vous avez déjà un compte, <a href="{{route('login')}}">Connectez-vous</a></h2>
+        </form>
     </div>
 </div>
-
 @endsection
