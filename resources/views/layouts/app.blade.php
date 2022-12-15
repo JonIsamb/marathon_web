@@ -36,7 +36,7 @@
                 <input id="searchBar" type="text" placeholder="Rechercher..."><a href="">
             </div>
             <div class="right">
-                <a href=""><div class="avatar"><img class="avatar-img" src="{{asset('storage/images/avatars/avatar-1.png')}}" alt=""></div></a>
+                <a href="{{ route('user.show',Auth::user()->id) }}"><div class="avatar"><img class="avatar-img" src="{{asset('storage/images/avatars/avatar-1.png')}}" alt=""></div></a>
                 <a id="logoutButton" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Déconnexion</a>
                 <form id="logout-form" action="{{route('logout')}}"
                 method="POST" style="display: none;"> {{ csrf_field() }}
