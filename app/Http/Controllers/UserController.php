@@ -57,7 +57,8 @@ class UserController extends Controller
         } else {
             $user->likes()->attach($request->oeuvre_id);
         }
+        $oeuvre = Oeuvre::find($request->oeuvre_id);
 
-        return redirect()->route('oeuvre.show', [$request->oeuvre_id]);
+        return redirect()->route('salle.show', [$oeuvre->salle_id]);
     }
 }
