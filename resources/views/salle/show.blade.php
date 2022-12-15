@@ -302,7 +302,7 @@ svg {
     height: 40vh;
   }
   #close{
-  position: absolute;
+
   right: 20px;
   top: 20px;
   }
@@ -529,7 +529,8 @@ svg {
           let content = document.createElement("p");
           content.textContent= comm.contenu;
           comm_container.appendChild(content);
-
+        @auth()
+          @if(Auth::user()->admin==1)
           if(!parseInt(comm.valide)){
             let form = document.createElement("form");
             form.setAttribute("method", "post");
@@ -542,7 +543,8 @@ svg {
             commId.setAttribute("value", comm.id);
 
             form.appendChild(commId);
-          
+            @endif
+        @endauth
 
             let validate = document.createElement("input");
             validate.setAttribute("type", "submit");
