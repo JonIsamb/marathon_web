@@ -1,340 +1,7 @@
 @extends('layouts.app')
 
 @section("css")
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
-        *{
-          --background-color: #202124;
-          --gray: #555;
-        }
-html, body, #app {
-  width:100%;
-  height:100%;
-  margin:0;
-  padding:0;
-  font-size:0;
-  font-family: 'Montserrat', sans-serif;
-}
-
-#app {
-  opacity:0;
-  height:auto;
-  background:radial-gradient(#ccc, #999);
-}
-
-#app img {
-  display:block;
-}
-
-#detail {
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:#111;
-  top:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-#detailImg {
-  width:80%;
-  height:80%;
-}
-
-
-#detailTxt {
-  font-size:40px;
-  letter-spacing:1px;
-
-  margin-top:70vh;
-  text-align:center;
-  color: white;
-
-
-
-}
-.comm {
-  max-width: 60vw;
-  border-color: #0000;
-  border-radius: 50px;
-  background-color: var(--background-color);
-  padding: 10px;
-  padding-inline:40px;
-  margin-top:20px;
-
-}
-.comm h3{
-  text-align:center;
-  font-size:20px;
-}
-.comm p{
-  text-align:center;
-  font-size:14px;
-}
-#detailDesc {
-  color:#ccc;
-  margin-top:30px;
-  font-size:16px;
-  letter-spacing:1px;
-  opacity: 0;
-  padding-inline:20vw;
-}
-#detailComms {
-  color:#ccc;
-  font-size:10px;
-  letter-spacing:1px;
-  opacity: 0;
-  width:60vw;
-  margin-inline:auto;
-  max-height: 50vh;
-  min-height: 300px;
-  overflow: scroll;
-}
-
-#detailInput {
-  color:#ccc;
-  font-size:10px;
-  margin-top:20px;
-  width:70vw;
-  margin-inline:auto;
-  letter-spacing:1px;
-  opacity: 0;
-  z-index:20;
-  color: darkgray;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color: white;
-  flex-direction:column;
-}
-#detailInput input, #detailInput textarea{
-  background-color: var(--background-color);
-  border-radius: 20px;
-  border-color: #000F;
-  border-width:0;
-  width:50vw;
-  padding-inline:30px;
-  color: white;
-
-
-}
-#detailInput input{
-  font-size:25px;
-  text-align:center;
-}
-#detailInput textarea{
-  resize: none;
-  rows:5;
-  padding:10px;
-  padding-inline:30px;
-  font-size: 16px
-}
-
-#detailInput textarea:focus,#detailInput input:focus{
-    outline: none;
-}
-svg {
-  pointer-events:none;
-  position:absolute;
-  top:0;
-  left:0;
-}
-#close{
-  position: sticky;
-  margin-left:80vw;
-  top: 5vh;
-  min-width: 50px;
-  min-height: 50px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:50px;
-  color:#EF4444;
-  z-index:20;
-}
-#headlines {
-  max-width:800px;
-  min-width:450px;
-  left:50%;
-  top:50%;
-  transform:translate(-50%, -50%);
-}
-.imgBox{
-  overflow: visible !important;
-}
-#detailImg{
-    position: absolute;
-    height: 60vh;
-    top:5vh;
-  }
-
-  #like{
-    position:absolute;
-    top: 55vh;
-    color: white;
-    font-size: 25px;
-    padding: 10px;
-    right: 15vw;
-  }
-  #like button{
-    border-radius:75px;
-    padding:10px;
-    font-size: 60px;
-    background-color:#000000FF;
-    color: white;
-    aspect-ratio:1;
-  }
-  #like button i{
-    display: flex;
-    align-items:center;
-    justify-content:center;
-  }
-  #comments_title{
-    width: 100vw;
-    text-align:center;
-    Font-size: 28px;
-    margin-top: 30px;
-    color: white;
-  }
-  #sortComments{
-    font-size:14px;
-    color: var(--gray);
-    display: flex;
-    justify-content:center;
-    align-items:center;
-    height:50px;
-    margin-bottom:20px;
-  }
-  #sortAsc, #sortDesc{
-    padding:10px;
-    font-size:35px;
-    border-radius: 50px;
-    aspect-ratio:1;
-    display: flex;
-    align-items:center;
-    justify-content:center;
-  }
-  #sortAsc{
-    margin-left:30px;
-  }
-  .active{
-    font-size:32px;
-    background-color: var(--gray);
-    color:white;
-
-  }
-  #commentaire_cta{
-    color:white;
-    text-align:center;
-    font-size: 34px;
-  }
-  @media screen and (max-width: 1000px){
-    #detailInput input, #detailInput textarea{
-      width:70vw;
-    }
-    #detailComms {
-      width: 70vw;
-    }
-    .comm {
-      max-width: 70vw;
-    }
-  }
-  #detailInput form{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content: center;
-    gap:10px;
-  }
-  #valider{
-    background-color: var(--background-color);
-    color: white;
-    padding:10px;
-    padding-inline:25px;
-    border-color:#0000;
-    border-radius:50px;
-    font-size:16px;
-    margin-bottom:30px
-  }
-  .AR_form{
-    display:flex;
-    justify-content: space-between;
-    align-items:center;
-    height: 50px;
-    width: 70%;
-    margin-inline:auto;
-  }
-  .validate, .reject{
-    width: 50px;
-    height: 50px;
-    z-index: 20;
-    position:absolute;
-    left:0px;
-    visibility: Hidden;
-
-  }
-  .bx-check{
-    position: relative;
-    color: green;
-    font-size: 60px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-  }
-
-  .bxs-trash{
-    position: relative;
-    color:#EF4444;
-    font-size: 40px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-  }
-@media screen and (max-width: 600px){
-  #detailInput input, #detailInput textarea{
-    width:80vw;
-  }
-  #detailImg{
-    height: 40vh;
-  }
-  #close{
-
-  right: 20px;
-  top: 20px;
-  }
-  #detailTxt{
-    margin-top:40vh;
-
-  }
-  #detailImg {
-  width:100%;
-  top:0;
-  }
-  #like{
-    top:30vh;
-    right:2vw;
-  }
-  #like button{
-    font-size: 40px;
-  }
-  #detailComms {
-    width: 90vw;
-  }
-  .comm {
-  max-width: 90vw;
-  }
-  @media screen and (min-width: 1250px){
-    #like{
-      top:32vh;
-      right:32vw;
-    }
-  }
-}
-    </style>
+    @vite(["/resources/css/salle.css"])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js
 "></script>
@@ -357,7 +24,7 @@ svg {
 
   @endif
     @foreach ($oeuvres as $oeuvre)
-      <img src="{{asset('storage/'.$oeuvre->media_url)}}" draggable="false" data-id="{{$oeuvre->id}}" data-desc="{{$oeuvre->description}}" data-x="{{$oeuvre->coord_x}}" data-y="{{$oeuvre->coord_Y}}" alt="{{$oeuvre->nom}}">
+      <img src="{{asset('storage/'.$oeuvre->media_url)}}" draggable="false" data-id="{{$oeuvre->id}}" data-auteur="{{$oeuvre->auteur}}" data-desc="{{$oeuvre->description}}" data-x="{{$oeuvre->coord_x}}" data-y="{{$oeuvre->coord_Y}}" alt="{{$oeuvre->nom}}">
     @endforeach
     </div>
 
@@ -373,6 +40,7 @@ svg {
         </form>
     @endauth
     <div id="detailTxt"></div>
+    <div id="detailAuteur"></div>
     <div id="detailDesc"></div>
     <div id="comments_title"><h2>Commentaires</h2></div>
     <div id="sortComments">
@@ -455,6 +123,14 @@ svg {
       // intro animation
       //gsap.fromTo(window, {scrollFrom:gsap.getProperty('#box1','height')} {duration:2.4, scrollTo:gsap.getProperty('#box1','height'), ease:'power1.out'});
       //gsap.from('.imgBox', {duration:0.2, opacity:0, stagger:0.06, ease:'power1.inOut'})
+      const url = new URL(location.href);
+      const urlId = url.href.split('#')[1]
+      console.log(urlId)
+      const boxToScroll = document.querySelector(`#box${urlId}`)
+      console.log(boxToScroll)
+      const {height, bottom} = boxToScroll.getBoundingClientRect()
+      console.log(height, bottom)
+      gsap.to(window, {duration:.5, scrollTo: bottom-height-150, ease:'power1.out'})
     }
 
   function initImg(i,t){
@@ -487,10 +163,99 @@ svg {
 
 
     t.onclick =()=> showDetail(t)
-  }
+  }  
 
+  function createComment(comm, id) {
+    if(id == comm.idOeuvre){
+      let comm_container = document.createElement("div");
+      let titre = document.createElement("h3");
+      let content = document.createElement("p");
+      let comms_target = document.getElementById("detailComms");
+      comm_container.classList.add("comm");
+      titre.textContent= comm.titre;
+      comm_container.appendChild(titre);
+      content.textContent= comm.contenu;
+      comm_container.appendChild(content);
+    @auth()
+      @if(Auth::user()->admin==1)
+        if(!parseInt(comm.valide)){
+          let form_container= document.createElement("div");
+          form_container.id = "form_container";
+          form_container.classList.add("AR_form");
+
+          let form_validate = document.createElement("form");
+          form_validate.setAttribute("method", "post");
+          form_validate.setAttribute("action", "route('commentaire.valide')");
+
+          let commId = document.createElement("input");
+          commId.setAttribute("type", "hidden");
+          commId.setAttribute("name", "commId");
+          commId.setAttribute("value", comm.id);
+
+          form_validate.appendChild(commId);
+
+          let validate = document.createElement("input");
+          validate.setAttribute("type", "submit");
+          validate.setAttribute("name", "submit");
+          validate.innerHtml = "<i class='bx bx-check'></i>";
+          validate.id="submit_validate";
+          validate.classList.add("validate");
+
+
+          let checkmark = document.createElement('i');
+          checkmark.classList.add("bx");
+          checkmark.classList.add("bx-check");
+          checkmark.appendChild(validate);
+          
+          form_validate.appendChild(checkmark);
+          let csrf = document.getElementsByName("_token")[0].cloneNode();
+          form_validate.appendChild(csrf);
+
+
+
+
+          let form_reject = document.createElement("form");
+          form_reject.setAttribute("method", "post");
+          form_reject.setAttribute("action", "route('commentaire.supprime')");
+
+          let reject = document.createElement("input");
+          reject.setAttribute("type", "submit");
+          reject.setAttribute("name", "submit");
+          reject.classList.add("reject");
+          reject.id="submit_reject";
+          reject.innerHtml = "<i class='bx bxs-trash'></i>";
+
+          commId = document.createElement("input");
+          commId.setAttribute("type", "hidden");
+          commId.setAttribute("name", "commId");
+          commId.setAttribute("value", comm.id);
+          form_reject.appendChild(commId);
+
+          let trash = document.createElement('i');
+          trash.classList.add("bx");
+          trash.classList.add("bxs-trash");
+          trash.appendChild(reject);
+
+          form_reject.appendChild(trash);
+          csrf = document.getElementsByName("_token")[0].cloneNode();
+          form_reject.appendChild(csrf);
+
+          form_container.appendChild(form_validate);
+          form_container.appendChild(form_reject);
+
+          comm_container.appendChild(form_container);
+
+        }
+        @endif
+        @endauth
+
+      comms_target.appendChild(comm_container);
+    }
+  }
+  
   function showDetail(t){
-    @auth
+    console.log("t:::",t)
+    @auth 
     for (elem of document.getElementsByClassName("oeuvre_id")){
       elem.value = t.dataset.id;
     }
@@ -503,9 +268,11 @@ svg {
       }
 
     } else {
+      
       gsap.timeline() //detailDesc
         .set('#detailTxt', {textContent:t.alt}, 0)
         .set('#detailDesc', {textContent:t.dataset.desc}, 0)
+        .set('#detailAuteur', {innerHtml:"<a href=''>"+t.dataset.auteur+"</a>"}, 0)
         .set('#detailImg', {background:'url('+t.src+') center no-repeat'}, 0)
         .fromTo('#detail', {top:'100%'}, {top:0, ease:'expo.inOut'}, 0)
         .fromTo('#detailImg', {y:'100%'}, {y:'0%', ease:'expo', duration:0.7}, 0.2)
@@ -515,10 +282,12 @@ svg {
         .fromTo('#detailInput', {opacity:0}, {opacity:1, ease:'power2.inOut'}, 0.4)
       document.body.style.overflow = "hidden";
       let comms_target = document.getElementById("detailComms");
-
+      document.getElementById('sortAsc').dataset.idSelected = t.dataset.id
+      document.getElementById('sortDesc').dataset.idSelected = t.dataset.id
       for (comm of commentaires){
         if(t.dataset.id == comm.idOeuvre){
-          let comm_container = document.createElement("div");
+          createComment(comm, t.dataset.id)
+          /*let comm_container = document.createElement("div");
           comm_container.classList.add("comm");
           let titre = document.createElement("h3");
           titre.textContent= comm.titre;
@@ -529,19 +298,20 @@ svg {
         @auth()
           @if(Auth::user()->admin==1)
             if(!parseInt(comm.valide)){
-              let form = document.createElement("form");
-              form.setAttribute("method", "post");
-              form.setAttribute("action", "route('user.validate')");
-              form.classList.add("AR_form");
+              let form_container= document.createElement("div");
+              form_container.id = "form_container";
+              form_container.classList.add("AR_form");
+
+              let form_validate = document.createElement("form");
+              form_validate.setAttribute("method", "post");
+              form_validate.setAttribute("action", "route('commentaire.valide')");
 
               let commId = document.createElement("input");
               commId.setAttribute("type", "hidden");
               commId.setAttribute("name", "commId");
               commId.setAttribute("value", comm.id);
 
-              form.appendChild(commId);
-
-
+              form_validate.appendChild(commId);
 
               let validate = document.createElement("input");
               validate.setAttribute("type", "submit");
@@ -555,9 +325,17 @@ svg {
               checkmark.classList.add("bx");
               checkmark.classList.add("bx-check");
               checkmark.appendChild(validate);
+              
+              form_validate.appendChild(checkmark);
+              let csrf = document.getElementsByName("_token")[0].cloneNode();
+              form_validate.appendChild(csrf);
 
-              form.appendChild(checkmark);
 
+
+
+              let form_reject = document.createElement("form");
+              form_reject.setAttribute("method", "post");
+              form_reject.setAttribute("action", "route('commentaire.supprime')");
 
               let reject = document.createElement("input");
               reject.setAttribute("type", "submit");
@@ -566,23 +344,34 @@ svg {
               reject.id="submit_reject";
               reject.innerHtml = "<i class='bx bxs-trash'></i>";
 
+              commId = document.createElement("input");
+              commId.setAttribute("type", "hidden");
+              commId.setAttribute("name", "commId");
+              commId.setAttribute("value", comm.id);
+              form_reject.appendChild(commId);
+
               let trash = document.createElement('i');
               trash.classList.add("bx");
               trash.classList.add("bxs-trash");
               trash.appendChild(reject);
 
-              form.appendChild(trash);
+              form_reject.appendChild(trash);
+              csrf = document.getElementsByName("_token")[0].cloneNode();
+              form_reject.appendChild(csrf);
 
-              let csrf = document.getElementsByName("_token")[0].cloneNode();
-              form.appendChild(csrf);
-              comm_container.appendChild(form);
+
+
+              form_container.appendChild(form_validate);
+              form_container.appendChild(form_reject);
+
+              comm_container.appendChild(form_container);
 
             }
             @endif
             @endauth
 
           comms_target.appendChild(comm_container);
-        }
+          */}
       }
       document.getElementById("detail").style.overflow = "scroll";
     }
@@ -606,11 +395,8 @@ svg {
 
     gsap.set('.imgBox', {x:0, y:0})
   } else {
-
     // quickTo can be used to optimize x/y movement on the cursor...but it doesn't work on fancier props like 'xPercent'
-
-
-    window.onmousemove =(e)=> {
+    window.onmousemove =(e)=> {      
       gsap.to('.imgBox', { // move + rotate imgBoxes relative to mouse position
         xPercent:-e.clientX/innerWidth*100,
         yPercent:-25-e.clientY/innerHeight*50,
@@ -639,21 +425,35 @@ var wheelDistance = function(evt) {
 }
 
 // Adding event listener for some element
-let speed = document.addEventListener(
-    "DOMMouseScroll", wheelDistance);
+  let speed = document.addEventListener("DOMMouseScroll", wheelDistance);
+  let sortAsc = document.getElementById("sortAsc");
+  let sortDesc = document.getElementById("sortDesc");
 
+  sortAsc.addEventListener("click", (e)=>{
+    sortDesc.classList.remove("active");
+    sortAsc.classList.add("active");
+    const id = e.currentTarget.dataset.idSelected
+    
+    const commContainer = document.querySelector('#detailComms')
+    commContainer.innerHTML=""
+    const filtered = commentaires.filter(c => c.idOeuvre == id)
+    const sorted = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
+    sorted.forEach(el => createComment(el, id))
+    commContainer.scrollTo(0, 0)
+  });
+  sortDesc.addEventListener("click", (e)=>{
+    sortDesc.classList.add("active");
+    sortAsc.classList.remove("active");
+    const id = e.currentTarget.dataset.idSelected
+    
+    const commContainer = document.querySelector('#detailComms')
+    commContainer.innerHTML=""
+    const filtered = commentaires.filter(c => c.idOeuvre == id)
+    const sorted = filtered.sort((a, b) => new Date(a.date) - new Date(b.date))
+    sorted.forEach(el => createComment(el, id))
+    commContainer.scrollTo(0, 0)
+  });
 
-    let sortAsc = document.getElementById("sortAsc");
-    let sortDesc = document.getElementById("sortDesc");
-
-    sortAsc.addEventListener("click", ()=>{
-      sortDesc.classList.remove("active");
-      sortAsc.classList.add("active");
-    });
-    sortDesc.addEventListener("click", ()=>{
-      sortAsc.classList.remove("active");
-      sortDesc.classList.add("active");
-    });
 
 </script>
 @endsection
