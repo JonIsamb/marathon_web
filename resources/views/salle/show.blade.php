@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section("css")
-    @vite(["/resources/css/salle.css"])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js
 "></script>
@@ -163,7 +162,7 @@
 
 
     t.onclick =()=> showDetail(t)
-  }  
+  }
 
   function createComment(comm, id) {
     if(id == comm.idOeuvre){
@@ -206,7 +205,7 @@
           checkmark.classList.add("bx");
           checkmark.classList.add("bx-check");
           checkmark.appendChild(validate);
-          
+
           form_validate.appendChild(checkmark);
           let csrf = document.getElementsByName("_token")[0].cloneNode();
           form_validate.appendChild(csrf);
@@ -252,10 +251,10 @@
       comms_target.appendChild(comm_container);
     }
   }
-  
+
   function showDetail(t){
     console.log("t:::",t)
-    @auth 
+    @auth
     for (elem of document.getElementsByClassName("oeuvre_id")){
       elem.value = t.dataset.id;
     }
@@ -268,7 +267,7 @@
       }
 
     } else {
-      
+
       gsap.timeline() //detailDesc
         .set('#detailTxt', {textContent:t.alt}, 0)
         .set('#detailDesc', {textContent:t.dataset.desc}, 0)
@@ -325,7 +324,7 @@
               checkmark.classList.add("bx");
               checkmark.classList.add("bx-check");
               checkmark.appendChild(validate);
-              
+
               form_validate.appendChild(checkmark);
               let csrf = document.getElementsByName("_token")[0].cloneNode();
               form_validate.appendChild(csrf);
@@ -396,7 +395,7 @@
     gsap.set('.imgBox', {x:0, y:0})
   } else {
     // quickTo can be used to optimize x/y movement on the cursor...but it doesn't work on fancier props like 'xPercent'
-    window.onmousemove =(e)=> {      
+    window.onmousemove =(e)=> {
       gsap.to('.imgBox', { // move + rotate imgBoxes relative to mouse position
         xPercent:-e.clientX/innerWidth*100,
         yPercent:-25-e.clientY/innerHeight*50,
@@ -433,7 +432,7 @@ var wheelDistance = function(evt) {
     sortDesc.classList.remove("active");
     sortAsc.classList.add("active");
     const id = e.currentTarget.dataset.idSelected
-    
+
     const commContainer = document.querySelector('#detailComms')
     commContainer.innerHTML=""
     const filtered = commentaires.filter(c => c.idOeuvre == id)
@@ -445,7 +444,7 @@ var wheelDistance = function(evt) {
     sortDesc.classList.add("active");
     sortAsc.classList.remove("active");
     const id = e.currentTarget.dataset.idSelected
-    
+
     const commContainer = document.querySelector('#detailComms')
     commContainer.innerHTML=""
     const filtered = commentaires.filter(c => c.idOeuvre == id)
