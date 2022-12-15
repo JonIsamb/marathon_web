@@ -11,11 +11,7 @@
 
 <div class="container404">
     <h1 class="message404">404!</h1>
-    <div class="square404"></div>
-    <div class="square404"></div>
-    <div class="square404"></div>
-    <div class="square404"></div>
-<div class="circle404"></div>
+    <a class="button" href="{{route('accueil')}}">Retourner à l'accueil</a>
 </div>
 
 
