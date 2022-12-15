@@ -453,6 +453,14 @@ svg {
       // intro animation
       //gsap.fromTo(window, {scrollFrom:gsap.getProperty('#box1','height')} {duration:2.4, scrollTo:gsap.getProperty('#box1','height'), ease:'power1.out'});
       //gsap.from('.imgBox', {duration:0.2, opacity:0, stagger:0.06, ease:'power1.inOut'})
+      const url = new URL(location.href);
+      const urlId = url.href.split('#')[1]
+      console.log(urlId)
+      const boxToScroll = document.querySelector(`#box${urlId}`)
+      console.log(boxToScroll)
+      const {height, bottom} = boxToScroll.getBoundingClientRect()
+      console.log(height, bottom)
+      gsap.to(window, {duration:.5, scrollTo: bottom-height-150, ease:'power1.out'})
     }
   
   function initImg(i,t){
@@ -527,19 +535,20 @@ svg {
         @auth()
           @if(Auth::user()->admin==1)
             if(!parseInt(comm.valide)){
-              let form = document.createElement("form");
-              form.setAttribute("method", "post");
-              form.setAttribute("action", "route('user.validate')");
-              form.classList.add("AR_form");
+              let form_container= document.createElement("div");
+              form_container.id = "form_container";
+              form_container.classList.add("AR_form");
+
+              let form_validate = document.createElement("form");
+              form_validate.setAttribute("method", "post");
+              form_validate.setAttribute("action", "{{route('commentaire.valide')}}");
 
               let commId = document.createElement("input");
               commId.setAttribute("type", "hidden");
               commId.setAttribute("name", "commId");
               commId.setAttribute("value", comm.id);
 
-              form.appendChild(commId);
-            
-          
+              form_validate.appendChild(commId);
 
               let validate = document.createElement("input");
               validate.setAttribute("type", "submit");
@@ -554,8 +563,16 @@ svg {
               checkmark.classList.add("bx-check");
               checkmark.appendChild(validate);
               
-              form.appendChild(checkmark);
-              
+              form_validate.appendChild(checkmark);
+              let csrf = document.getElementsByName("_token")[0].cloneNode();
+              form_validate.appendChild(csrf);
+
+
+
+
+              let form_reject = document.createElement("form");
+              form_reject.setAttribute("method", "post");
+              form_reject.setAttribute("action", "{{route('commentaire.supprime')}}");
 
               let reject = document.createElement("input");
               reject.setAttribute("type", "submit");
@@ -564,16 +581,27 @@ svg {
               reject.id="submit_reject";
               reject.innerHtml = "<i class='bx bxs-trash'></i>";
 
+              commId = document.createElement("input");
+              commId.setAttribute("type", "hidden");
+              commId.setAttribute("name", "commId");
+              commId.setAttribute("value", comm.id);
+              form_reject.appendChild(commId);
+
               let trash = document.createElement('i');
               trash.classList.add("bx");
               trash.classList.add("bxs-trash");
               trash.appendChild(reject);
 
-              form.appendChild(trash);
+              form_reject.appendChild(trash);
+              csrf = document.getElementsByName("_token")[0].cloneNode();
+              form_reject.appendChild(csrf);
 
-              let csrf = document.getElementsByName("_token")[0].cloneNode();
-              form.appendChild(csrf);
-              comm_container.appendChild(form);
+
+
+              form_container.appendChild(form_validate);
+              form_container.appendChild(form_reject);
+
+              comm_container.appendChild(form_container);
 
             }
             @endif
