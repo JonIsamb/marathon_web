@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class SalleController extends Controller
 {
+    public function index(){
+        $salles = Salle::all();
+
+        return view('salle.index', ['salles' => $salles]);
+    }
+
     public function show(Request $request,$id){
         $salle= Salle::find($id);
         $oeuvres = Oeuvre::where('salle_id','=',$id)->where('valide', '=', '1');

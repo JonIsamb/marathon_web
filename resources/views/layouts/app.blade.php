@@ -32,6 +32,10 @@
                 <img src="{{asset('storage/images/logo/Full.png')}}" alt="">
                 <h1>Capitol Art Gallery</h1>
             </div>
+            <div class="liens">
+                <a href="{{ route('home') }}">Accueil</a>
+                <a href="{{ route('salle.index') }}">Salles</a>
+            </div>
             <div class="center">
                 <input id="searchBar" type="text" placeholder="Rechercher..."><a href=""></a>
             </div>
