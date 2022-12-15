@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Oeuvre;
 use App\Models\Salle;
+use App\Models\Commentaire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,9 +26,11 @@ class SalleController extends Controller
         }
 
         $path="storage/".$salle->plan_url;
+        $commentaires=Commentaire::all();
         return view('salle.show',[
             'path'=>$path,
             'salle'=>$salle,
+            'commentaires'=>$commentaires,
             'oeuvres'=>$oeuvres
         ]);
     }
