@@ -96,7 +96,7 @@
                                                 </div>
                                                 <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->id}}">
                                                 <input type="hidden" name="oeuvre_id" id="oeuvre_id" value="{{$oeuvre->salle_id}}">
-                                                <input
+
                                                 <button type="submit" class="btn btn-primary">Valider</button>
                                             </form>
 
@@ -119,13 +119,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
         @endif
 
 
