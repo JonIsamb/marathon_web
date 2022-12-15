@@ -28,17 +28,20 @@
                 <a id="registerButton" href="{{ route('register') }}">S'INSCRIRE</a>
             </div>
         @else
-            <li> Bonjour {{ Auth::user()->name }}</li>
-            @if (Auth::user())
-                <li><a href="#">Des liens spécifiques pour utilisateurs connectés..</a></li>
-            @endif
-            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.
-          getElementById('logout-form').submit();">
-                    Logout
-                </a></li>
-            <form id="logout-form" action="{{ route('logout') }}"
-                  method="POST" style="display: none;"> {{ csrf_field() }}
-            </form>
+            <div class="logo">
+                <img src="{{asset('storage/images/logo/Full.png')}}" alt="">
+                <h1>Capitol Art Gallery</h1>
+            </div>
+            <div class="center">
+                <input id="searchBar" type="text" placeholder="Rechercher..."><a href="">
+            </div>
+            <div class="right">
+                <a href="{{ route('user.show',Auth::user()->id) }}"><div class="avatar"><img class="avatar-img" src="{{asset('storage/images/avatars/avatar-1.png')}}" alt=""></div></a>
+                <a id="logoutButton" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Déconnexion</a>
+                <form id="logout-form" action="{{route('logout')}}"
+                method="POST" style="display: none;"> {{ csrf_field() }}
+                </form>
+            </div>
         @endguest
 </nav>
 
